@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.Button?>
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" spacing="80.0" style="-fx-background-color: #ff0000;" xmlns:fx="http://javafx.com/fxml" fx:controller="net.piramide.gestionale_pizzeria.HelloController">
+    <children>
+        <Button mnemonicParsing="false" prefHeight="70.0" prefWidth="356.0" style="-fx-background-radius: 15; -fx-border-radius: 15;" text="New Order">
+            <font>
+                <Font name="Frank Ruehl CLM Bold" size="39.0" />
+            </font>
+        </Button>
+        <Button mnemonicParsing="false" prefHeight="70.0" prefWidth="356.0" style="-fx-background-radius: 15; -fx-border-radius: 15;" text="Current Orders">
+            <font>
+                <Font name="Frank Ruehl CLM Bold" size="39.0" />
+            </font>
+        </Button>
+        <Button mnemonicParsing="false" prefHeight="70.0" prefWidth="356.0" style="-fx-background-radius: 15; -fx-border-radius: 15;" text="Order History and Billing">
+            <font>
+                <Font name="Frank Ruehl CLM Bold" size="28.0" />
+            </font>
+        </Button>
+    </children>
+</VBox>
