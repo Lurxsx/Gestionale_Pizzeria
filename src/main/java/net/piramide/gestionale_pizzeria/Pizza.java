@@ -28,17 +28,5 @@ public class Pizza {
     public String descrizione() {
         return nome + " - Dimensione: " + dimensione + " - Ingredienti: " + String.join(", ", ingredienti);
     }
-
-    // Esempio di utilizzo
-    public static void main(String[] args) {
-        // Lista di ingredienti per una pizza margherita
-        List<String> ingredientiMargherita = List.of("salsa di pomodoro", "mozzarella", "basilico");
-
-        // Creazione di un'istanza della classe Pizza
-        Pizza pizzaMargherita = new Pizza("Margherita", "Media", ingredientiMargherita);
-
-        // Stampa della descrizione della pizza
-        System.out.println(pizzaMargherita.descrizione());
-    }
 }
 
