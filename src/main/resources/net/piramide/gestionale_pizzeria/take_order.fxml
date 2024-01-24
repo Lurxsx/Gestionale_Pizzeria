@@ -63,7 +63,7 @@
                         </Button>
                </children>
                <padding>
-                  <Insets left="15.0" top="15.0" />
+                  <Insets bottom="15.0" left="15.0" top="15.0" />
                </padding>
             </VBox>
          </content>
