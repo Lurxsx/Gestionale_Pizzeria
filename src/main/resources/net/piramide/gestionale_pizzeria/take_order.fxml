@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<?import javafx.scene.text.Font?>
+<AnchorPane fx:controller="net.piramide.gestionale_pizzeria.TakeOrderController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <ScrollPane layoutX="976.0" layoutY="-1.0" prefHeight="561.0" prefWidth="305.0" style="-fx-border-color: #000000; -fx-border-width: 5;">
+            <content>
+                <AnchorPane prefHeight="43.0" prefWidth="293.0" style="-fx-border-color: #000000;">
+                    <children>
+                        <Label layoutX="10.0" prefHeight="41.0" prefWidth="178.0" text="Pizza 1">
+                            <font>
+                                <Font name="Dubai Bold" size="20.0" />
+                            </font>
+                        </Label>
+                        <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="188.0" prefHeight="41.0" prefWidth="99.0" text="€ 10.00" textAlignment="RIGHT">
+                            <font>
+                                <Font name="Dubai Bold" size="20.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </AnchorPane>
+            </content>
+        </ScrollPane>
+        <AnchorPane layoutX="976.0" layoutY="555.0" prefHeight="165.0" prefWidth="305.0" style="-fx-border-color: #000000; -fx-border-width: 6; -fx-background-color: #ff7d7d;">
+            <children>
+                <VBox alignment="CENTER" layoutX="13.0" layoutY="6.0" prefHeight="91.0" prefWidth="279.0">
+                    <children>
+                        <Label alignment="CENTER" prefHeight="19.0" prefWidth="161.0" text="TOTALE:">
+                            <font>
+                                <Font name="Dubai Bold" size="20.0" />
+                            </font>
+                        </Label>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="41.0" prefWidth="233.0" text="€ 10.00" textAlignment="CENTER">
+                            <font>
+                                <Font name="Dubai Bold" size="28.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </VBox>
+                <Button fx:id="confirmButton" alignment="CENTER" contentDisplay="CENTER" layoutX="36.0" layoutY="110.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="233.0" style="-fx-background-color: #009900;" text="CONFERMA ORDINE" textAlignment="CENTER">
+                    <font>
+                        <Font name="Dubai Bold" size="16.0" />
+                    </font>
+                </Button>
+            </children>
+        </AnchorPane>
+        <ScrollPane prefHeight="459.0" prefWidth="981.0" style="-fx-border-color: #000000; -fx-border-width: 5;">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="434.0" prefWidth="969.0">
+                    <children>
+                        <Button alignment="TOP_LEFT" layoutX="28.0" layoutY="20.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="915.0" style="-fx-background-color: #54b2d7; -fx-background-radius: 15; -fx-border-radius: 15;" text="Pizza 1: salsa di pomodoro, mozzarella, salame piccante, patatine">
+                            <font>
+                                <Font name="Dubai Bold" size="20.0" />
+                            </font>
+                        </Button>
+                        <Button alignment="TOP_LEFT" layoutX="28.0" layoutY="88.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="134.0" style="-fx-background-color: #b0fc95; -fx-background-radius: 15; -fx-border-radius: 15;" text="NUOVA PIZZA">
+                            <font>
+                                <Font name="Dubai Bold" size="17.0" />
+                            </font>
+                        </Button>
+                    </children>
+                </AnchorPane>
+            </content>
+        </ScrollPane>
+        <AnchorPane layoutY="454.0" prefHeight="266.0" prefWidth="981.0" style="-fx-border-color: #000000; -fx-border-width: 5;">
+            <children>
+                <TextField layoutX="181.0" layoutY="73.0" prefHeight="35.0" prefWidth="314.0" promptText="via X giornate, 52">
+                    <font>
+                        <Font size="15.0" />
+                    </font>
+                </TextField>
+                <Label layoutX="102.0" layoutY="74.0" prefHeight="29.0" prefWidth="81.0" text="indirizzo:">
+                    <font>
+                        <Font name="Dubai Bold" size="16.0" />
+                    </font>
+                </Label>
+                <Label layoutX="86.0" layoutY="155.0" prefHeight="29.0" prefWidth="95.0" text="nominativo:">
+                    <font>
+                        <Font name="Dubai Bold" size="16.0" />
+                    </font>
+                </Label>
+                <Label layoutX="566.0" layoutY="76.0" prefHeight="29.0" prefWidth="49.0" text="città:">
+                    <font>
+                        <Font name="Dubai Bold" size="16.0" />
+                    </font>
+                </Label>
+                <TextField layoutX="619.0" layoutY="73.0" prefHeight="35.0" prefWidth="206.0" promptText="Roma">
+                    <font>
+                        <Font size="15.0" />
+                    </font>
+                </TextField>
+                <TextField layoutX="183.0" layoutY="152.0" prefHeight="35.0" prefWidth="233.0" promptText="Rossi">
+                    <font>
+                        <Font size="15.0" />
+                    </font>
+                </TextField>
+                <Label layoutX="544.0" layoutY="155.0" prefHeight="29.0" prefWidth="73.0" text="telefono:">
+                    <font>
+                        <Font name="Dubai Bold" size="16.0" />
+                    </font>
+                </Label>
+                <TextField layoutX="619.0" layoutY="152.0" prefHeight="35.0" prefWidth="206.0" promptText="333 333 3333">
+                    <font>
+                        <Font size="15.0" />
+                    </font>
+                </TextField>
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>
