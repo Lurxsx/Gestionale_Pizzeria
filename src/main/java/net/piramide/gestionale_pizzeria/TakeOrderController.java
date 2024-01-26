@@ -57,9 +57,5 @@ public class TakeOrderController {
         VboxLista.getChildren().add(listaPizze.size(), newPizzaButton); //aggiunge il bottone "nuova pizza" in fondo
     }
 
-    public void onTestButtonClick(ActionEvent actionEvent) {
 
-
-
-    }
 }

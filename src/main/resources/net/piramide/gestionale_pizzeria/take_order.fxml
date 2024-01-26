@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.piramide.gestionale_pizzeria.TakeOrderController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.piramide.gestionale_pizzeria.TakeOrderController">
     <children>
         <ScrollPane layoutX="976.0" layoutY="-1.0" prefHeight="561.0" prefWidth="305.0" style="-fx-border-color: #000000; -fx-border-width: 5;">
             <content>
@@ -110,10 +110,9 @@
                         <Font size="15.0" />
                     </font>
                 </TextField>
-            <Button fx:id="testButton" layoutX="877.0" layoutY="31.0" mnemonicParsing="false" onAction="#onTestButtonClick" text="Button" />
             </children>
         </AnchorPane>
-            <Button fx:id="pizzaListButton" alignment="TOP_LEFT" layoutX="33.0" layoutY="-75.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="915.0" style="-fx-background-color: #54b2d7; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #000000;" text="Pizza Diavola: salsa di pomodoro, mozzarella, salame piccante">
+            <Button fx:id="pizzaListButton" alignment="TOP_LEFT" layoutX="-87.0" layoutY="-66.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="915.0" style="-fx-background-color: #54b2d7; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #000000;" text="Pizza Diavola: salsa di pomodoro, mozzarella, salame piccante">
                 <font>
                     <Font name="Dubai Bold" size="20.0" />
                 </font>
