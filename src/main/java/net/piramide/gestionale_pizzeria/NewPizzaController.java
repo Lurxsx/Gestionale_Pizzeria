@@ -33,6 +33,8 @@ public class NewPizzaController {
     private Button confirmPizzaButton;
     public static String stringaprova;
     public static Pizza newPizza;
+
+    private Sistema Sistema;
     public void initialize() {
         //HASHMAP per pizza = ingredienti
         pizzaIngredienti = new HashMap<>();

@@ -45,6 +45,7 @@ public class TakeOrderController {
     private VBox VboxLista;
     Ordine ordine;
     Map<String, Double> listaPrezziPizza;
+    private Sistema Sistema;
     public void initialize() { //inizializazione
         ordine = new Ordine();  //creazione istanza Ordine
         listaPizze = new ArrayList<>(); //creazione lista pizze (vuota)
@@ -56,6 +57,10 @@ public class TakeOrderController {
         listaPrezziPizza.put("Pizza Diavola", 7.00);
         listaPrezziPizza.put("Pizza Marinara", 4.00);
 
+    }
+
+    public void setSistema(Sistema Sistema){
+        this.Sistema = Sistema;
     }
 
     public void onNewPizzaButtonClick(ActionEvent actionEvent) throws IOException { //Azione bottone "NUOVA PIZZA"
@@ -135,8 +140,16 @@ public class TakeOrderController {
 
     public void onConfirmButtonClick(ActionEvent event) throws IOException {
         if(txtCity.getText() != null && txtIndirizzo.getText() != null && txtNom.getText() != null && txtTel.getText() != null /*&& listaPizze.size() > 1*/) {
-            Parent root = FXMLLoader.load(getClass().getResource("main-menu.fxml"));
-            stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("main-menu.fxml"));
+            Parent root = loader.load();
+
+            // Ottieni il controller del GestionaleController
+            GestionaleController gestionaleController = loader.getController();
+
+            // Passa il sistema al GestionaleController
+            gestionaleController.setSistema(this.Sistema);
+
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
