@@ -21,6 +21,38 @@ public class Ordine {
         this.stato = 0;
         this.nOrdine = nOrdine;
     }
+    public Ordine(){
+
+    }
+
+    public void setPizze(ArrayList<Pizza> pizze) {
+        this.pizze = pizze;
+    }
+
+    public void setnOrdine(int nOrdine) {
+        this.nOrdine = nOrdine;
+    }
+
+    public void setNumero_telefonico(String numero_telefonico) {
+        this.numero_telefonico = numero_telefonico;
+    }
+
+    public void setVia(String via) {
+        this.via = via;
+    }
+
+    public void setStato(int stato) {
+        this.stato = stato;
+    }
+
+    public void setnPizze(int nPizze) {
+        this.nPizze = nPizze;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
     @Override
     public String toString() {
         return "Ordine{" +

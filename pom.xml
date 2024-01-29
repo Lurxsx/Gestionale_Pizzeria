@@ -61,7 +61,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                net.piramide.gestionale_pizzeria/net.piramide.gestionale_pizzeria.HelloApplication
+                                net.piramide.gestionale_pizzeria/net.piramide.gestionale_pizzeria.GestionaleApplication
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.piramide.gestionale_pizzeria.TakeOrderController">
+    <children>
+        <ScrollPane layoutX="976.0" layoutY="-1.0" prefHeight="561.0" prefWidth="305.0" style="-fx-border-color: #000000; -fx-border-width: 5;">
+         <content>
+            <VBox fx:id="vBoxListaPrezzi" prefWidth="294.0" />
+         </content></ScrollPane>
+        <AnchorPane layoutX="976.0" layoutY="555.0" prefHeight="165.0" prefWidth="305.0" style="-fx-border-color: #000000; -fx-border-width: 6; -fx-background-color: #ff7d7d;">
+            <children>
+                <VBox alignment="CENTER" layoutX="13.0" layoutY="6.0" prefHeight="91.0" prefWidth="279.0">
+                    <children>
+                        <Label alignment="CENTER" prefHeight="19.0" prefWidth="161.0" text="TOTALE:">
+                            <font>
+                                <Font name="Dubai Bold" size="20.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="lblPrezzoTotale" alignment="CENTER" contentDisplay="CENTER" prefHeight="41.0" prefWidth="233.0" text="€ 0.00" textAlignment="CENTER">
+                            <font>
+                                <Font name="Dubai Bold" size="28.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </VBox>
+                <Button fx:id="confirmButton" alignment="CENTER" contentDisplay="CENTER" layoutX="36.0" layoutY="110.0" mnemonicParsing="false" onAction="#onConfirmButtonClick" prefHeight="41.0" prefWidth="233.0" style="-fx-background-color: #009900;" text="CONFERMA ORDINE" textAlignment="CENTER">
+                    <font>
+                        <Font name="Dubai Bold" size="16.0" />
+                    </font>
+                </Button>
+            </children>
+        </AnchorPane>
+        <ScrollPane prefHeight="459.0" prefWidth="981.0" style="-fx-border-color: #000000; -fx-border-width: 5;">
+         <content>
+            <VBox fx:id="VboxLista" prefHeight="446.0" prefWidth="946.0" spacing="20.0">
+               <children>
+                        <Button fx:id="newPizzaButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#onNewPizzaButtonClick" prefHeight="35.0" prefWidth="134.0" style="-fx-background-color: #b0fc95; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #000000;" text="NUOVA PIZZA">
+                            <font>
+                                <Font name="Dubai Bold" size="17.0" />
+                            </font>
+                        </Button>
+               </children>
+               <padding>
+                  <Insets bottom="15.0" left="15.0" top="15.0" />
+               </padding>
+            </VBox>
+         </content>
+        </ScrollPane>
+        <AnchorPane layoutY="454.0" prefHeight="266.0" prefWidth="981.0" style="-fx-border-color: #000000; -fx-border-width: 5;">
+            <children>
+                <TextField fx:id="txtIndirizzo" layoutX="181.0" layoutY="73.0" prefHeight="35.0" prefWidth="314.0" promptText="via X giornate, 52">
+                    <font>
+                        <Font size="15.0" />
+                    </font>
+                </TextField>
+                <Label layoutX="102.0" layoutY="74.0" prefHeight="29.0" prefWidth="81.0" text="indirizzo:">
+                    <font>
+                        <Font name="Dubai Bold" size="16.0" />
+                    </font>
+                </Label>
+                <Label layoutX="86.0" layoutY="155.0" prefHeight="29.0" prefWidth="95.0" text="nominativo:">
+                    <font>
+                        <Font name="Dubai Bold" size="16.0" />
+                    </font>
+                </Label>
+                <Label layoutX="566.0" layoutY="76.0" prefHeight="29.0" prefWidth="49.0" text="città:">
+                    <font>
+                        <Font name="Dubai Bold" size="16.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="txtCity" layoutX="619.0" layoutY="73.0" prefHeight="35.0" prefWidth="206.0" promptText="Roma">
+                    <font>
+                        <Font size="15.0" />
+                    </font>
+                </TextField>
+                <TextField fx:id="txtNom" layoutX="183.0" layoutY="152.0" prefHeight="35.0" prefWidth="233.0" promptText="Rossi">
+                    <font>
+                        <Font size="15.0" />
+                    </font>
+                </TextField>
+                <Label layoutX="544.0" layoutY="155.0" prefHeight="29.0" prefWidth="73.0" text="telefono:">
+                    <font>
+                        <Font name="Dubai Bold" size="16.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="txtTel" layoutX="619.0" layoutY="152.0" prefHeight="35.0" prefWidth="206.0" promptText="333 333 3333">
+                    <font>
+                        <Font size="15.0" />
+                    </font>
+                </TextField>
+            </children>
+        </AnchorPane>
+            <Button fx:id="pizzaListButton" alignment="TOP_LEFT" layoutX="-87.0" layoutY="-66.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="915.0" style="-fx-background-color: #54b2d7; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #000000;" text="Pizza Diavola: salsa di pomodoro, mozzarella, salame piccante">
+                <font>
+                    <Font name="Dubai Bold" size="20.0" />
+                </font>
+            </Button>
+          <AnchorPane fx:id="APContenitorePizzaPrezzo" layoutX="982.0" layoutY="-41.0" prefHeight="43.0" prefWidth="293.0" style="-fx-border-color: #000000;">
+              <children>
+                  <Label fx:id="lblNomePizza" layoutX="10.0" prefHeight="41.0" prefWidth="178.0" text="Pizza Diavola">
+                      <font>
+                          <Font name="Dubai Bold" size="20.0" />
+                      </font>
+                  </Label>
+                  <Label fx:id="lblPrezzoPizza" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="188.0" prefHeight="41.0" prefWidth="99.0" text="€ 7.00" textAlignment="RIGHT">
+                      <font>
+                          <Font name="Dubai Bold" size="20.0" />
+                      </font>
+                  </Label>
+              </children>
+          </AnchorPane>
+    </children>
+</AnchorPane>
