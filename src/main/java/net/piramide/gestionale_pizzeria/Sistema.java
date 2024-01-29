@@ -18,6 +18,11 @@ public class Sistema {
         countOrdini++;
 
     }
+
+    public int getCountOrdini() {
+        return countOrdini;
+    }
+
     public void stampaOrdini(){
         for (Ordine ordine : Ordini) {
             System.out.println(ordine.toString());
