@@ -44,7 +44,12 @@ public class NewPizzaController {
         ObservableList<String> pizzaList = FXCollections.observableArrayList(pizzaIngredienti.keySet());
         searchableComboBox.setItems(pizzaList);
 
-        searchableComboBox.setOnAction(event -> handlePizzaSelection());
+        searchableComboBox.setOnAction(event -> {
+            try {
+                handlePizzaSelection();
+            } catch (IOException e) {
+            }
+        });
 
 
 
@@ -52,7 +57,7 @@ public class NewPizzaController {
         //searchableComboBox.getItems().addAll(items);
     }
 
-    private void handlePizzaSelection() {
+    private void handlePizzaSelection() throws IOException {
         // Gestisci la selezione della pizza qui
         String pizzaSelezionata = searchableComboBox.getValue();
         List<String> ingredienti = pizzaIngredienti.get(pizzaSelezionata);

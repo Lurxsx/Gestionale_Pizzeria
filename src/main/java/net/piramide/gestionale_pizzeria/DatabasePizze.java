@@ -22,6 +22,10 @@ public class DatabasePizze {
         int i;
         FileReader fr = new FileReader(referenceDatabase);
         BufferedReader bw = new BufferedReader(fr);
+        String pizza = "Pizza";
+        if(nome.startsWith(pizza)){
+            nome = nome.substring(pizza.length()).trim();
+        }
 
         for (i = 0; i < contaRighe(); i++) {
             riga = bw.readLine();

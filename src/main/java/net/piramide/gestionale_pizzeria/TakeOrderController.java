@@ -46,6 +46,8 @@ public class TakeOrderController {
     Ordine ordine;
     Map<String, Double> listaPrezziPizza;
     private Sistema Sistema;
+    Pizza nuovaPizza;
+
     DatabasePizze dbp = new DatabasePizze();
     public void initialize() { //inizializazione
         ordine = new Ordine();  //creazione istanza Ordine
@@ -68,7 +70,7 @@ public class TakeOrderController {
         Stage stage = new Stage();
         stage.setScene(new Scene(root1));
         stage.showAndWait();
-        Pizza nuovaPizza = NewPizzaController.newPizza; //l'oggetto creato nell'altro controller viene copiato in modo da avere le info sulla pizza
+        nuovaPizza = NewPizzaController.newPizza; //l'oggetto creato nell'altro controller viene copiato in modo da avere le info sulla pizza
         listaPizze.add(listaPizze.size(), nuovaPizza); //aggiunta nuova pizza nella lista delle pizze ordinate
         ordine.setPizze(listaPizze); //aggiunta lista di pizze all'ordine, instanza della classe Ordine
         updateList();
@@ -91,11 +93,12 @@ public class TakeOrderController {
 
         //parte del vBoxListaPrezzi
         //vBoxListaPrezzi.getChildren().clear(); //cancella tutto il contenuto della Vbox
-        System.out.println(lblNomePizza.getText());
-        System.out.println(lblPrezzoPizza.getText());
+        //System.out.println(lblNomePizza.getText());
+        //System.out.println(lblPrezzoPizza.getText());
 
         vBoxListaPrezzi.getChildren().clear();
         for (int i = 0; i < listaPizze.size(); i++) {
+
             AnchorPane anchorPane = new AnchorPane();
             anchorPane.setStyle(APContenitorePizzaPrezzo.getStyle());
             anchorPane.setPrefHeight(APContenitorePizzaPrezzo.getPrefHeight());
@@ -114,7 +117,7 @@ public class TakeOrderController {
             prezzo.setFont(lblPrezzoPizza.getFont());
 
             // Formatta il prezzo con due decimali e il simbolo dell'euro
-            prezzo.setText(String.format(Locale.US, "€ %.2f", dbp.getPrezzo(nome.getText())));
+            prezzo.setText(String.format(Locale.US, "€ %.2f",listaPizze.get(i).getPrezzo()));
 
             prezzo.setPrefHeight(lblPrezzoPizza.getPrefHeight());
             prezzo.setPrefWidth(lblPrezzoPizza.getPrefWidth());
@@ -129,11 +132,14 @@ public class TakeOrderController {
 
 
         //parte dell'aggiornamenteo del prezzp
+        // parte dell'aggiornamento del prezzo
         double SommaTotale = 0;
         for (int i = 0; i < listaPizze.size(); i++) {
-            SommaTotale = SommaTotale + listaPrezziPizza.get(listaPizze.get(i).getNome());
+            SommaTotale = SommaTotale + listaPizze.get(i).getPrezzo();
         }
-        System.out.println(SommaTotale);
+        lblPrezzoTotale.setText(String.format(Locale.US, "€ %.2f", SommaTotale));
+
+        //System.out.println(SommaTotale);
         lblPrezzoTotale.setText(String.format(Locale.US, "€ %.2f", SommaTotale));
     }
 
