@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Sistema {
     private ArrayList<Ordine> Ordini;
-    private int countOrdini = 1;
+    private int countOrdini = 0;
 
     public Sistema(){
         Ordini = new ArrayList<>();
@@ -17,6 +17,11 @@ public class Sistema {
         Ordini.add(tempOrdine);
         countOrdini++;
 
+    }
+
+    public void make_Order(Ordine Ordine){
+        Ordini.add(Ordine);
+        countOrdini++;
     }
 
     public int getCountOrdini() {
