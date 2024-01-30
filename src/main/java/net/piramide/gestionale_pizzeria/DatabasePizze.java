@@ -1,8 +1,7 @@
 package net.piramide.gestionale_pizzeria;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 
 public class DatabasePizze {
 
@@ -44,13 +43,35 @@ public class DatabasePizze {
                 return prezzo;
             }
         }
+
+
         fr.close();
         bw.close();  // Assicurati di chiudere il BufferedReader alla fine
         return 0;
     }
+    public Map<String, List<String>> getPizzaIngredientsHashMap() throws IOException {
 
-    public void getIngredienti(String nome) throws IOException {
+        Map<String, List<String>> pizzaMap = new HashMap<>();
         String riga;
+        int i;
+        FileReader fr = new FileReader(referenceDatabase);
+        BufferedReader bw = new BufferedReader(fr);
+        for (i = 0; i < contaRighe(); i++) {
+            riga = bw.readLine();
+            String[] parti = riga.split(", ");
+            String nomePizza = parti[0];
+            List<String> ingredienti = new ArrayList<>();
+            for (int j = 2; i < parti.length; i++) {
+                ingredienti.add(parti[i]);
+            }
+            pizzaMap.put(nomePizza, ingredienti);
+        }
+        return pizzaMap;
+    }
+
+    public List<String> getIngredienti(String nome) throws IOException {
+        String riga;
+        List<String> opzioni = null;
         int i;
         FileReader fr = new FileReader(referenceDatabase);
         BufferedReader bw = new BufferedReader(fr);
@@ -64,25 +85,16 @@ public class DatabasePizze {
             // Verifica se la prima parola è uguale al nome dato
             if (parti[0].equals(nome)) {
                 // Trova l'indice della prima virgola
-                int indicePrimaVirgola = riga.indexOf(',');
+                opzioni = Arrays.asList(Arrays.copyOfRange(parti, 2, parti.length));
 
-                riga = riga.substring(indicePrimaVirgola + 1).trim();
+                return opzioni;
 
-                indicePrimaVirgola = riga.indexOf(',');
-                riga = riga.substring(indicePrimaVirgola + 1).trim();
-
-                //rimuove le parentesi quadre prima e dopo
-                riga = riga.substring(1, riga.length() - 1);
-
-                System.out.println(riga);
-
-
-                break;
             }
         }
         fr.close();
         bw.close();  // Assicurati di chiudere il BufferedReader alla fine
 
+        return opzioni;
     }
 
 
