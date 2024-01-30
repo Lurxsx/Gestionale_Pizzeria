@@ -43,9 +43,6 @@ public class CurrentOrdersController {
         clockLabel.setText(formattedTime);
     }
 
-    public void test(){
-        System.out.println(gestionale.test);
-    }
 
 
 

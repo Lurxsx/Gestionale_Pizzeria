@@ -17,10 +17,20 @@ public class GestionaleController {
     private Scene scene;
     private Parent root;
     private Sistema Sistema;
+    private Stage mainStage;
+    private Scene currentScene;
 
     public void setSistema(Sistema Sistema){
         this.Sistema = Sistema;
     }
+    public void setStage(Stage stage){
+        this.mainStage = stage;
+    }
+    public void setScene(Scene scene){
+        this.currentScene = scene;
+    }
+
+
 
     public void switchToTakeOrder(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("take_order.fxml"));
@@ -39,4 +49,10 @@ public class GestionaleController {
     }
 
 
+    public void switchToCurrentOrders(ActionEvent actionEvent) {
+
+        mainStage.setScene(currentScene);
+        mainStage.show();
+
+    }
 }
