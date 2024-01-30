@@ -46,6 +46,7 @@ public class TakeOrderController {
     Ordine ordine;
     Map<String, Double> listaPrezziPizza;
     private Sistema Sistema;
+    DatabasePizze dbp = new DatabasePizze();
     public void initialize() { //inizializazione
         ordine = new Ordine();  //creazione istanza Ordine
         listaPizze = new ArrayList<>(); //creazione lista pizze (vuota)
@@ -53,9 +54,7 @@ public class TakeOrderController {
         listaPrezziPizza= new HashMap<>();
 
         // Aggiunta degli elementi alla mappa
-        listaPrezziPizza.put("Pizza Margherita", 5.00);
-        listaPrezziPizza.put("Pizza Diavola", 7.00);
-        listaPrezziPizza.put("Pizza Marinara", 4.00);
+
 
     }
 
@@ -76,7 +75,7 @@ public class TakeOrderController {
 
     }
 
-    public void updateList(){   //AGGIORNA LA LISTA DELLE PIZZE ORDINATE
+    public void updateList() throws IOException {   //AGGIORNA LA LISTA DELLE PIZZE ORDINATE
         VboxLista.getChildren().clear(); //cancella tutto il contenuto della Vbox
         for (int i = 0; i < listaPizze.size(); i++) { //per ogni ciclo, crea un nuovo bottone con le informazioni della pizza
             Button button = new Button();
@@ -115,7 +114,7 @@ public class TakeOrderController {
             prezzo.setFont(lblPrezzoPizza.getFont());
 
             // Formatta il prezzo con due decimali e il simbolo dell'euro
-            prezzo.setText(String.format(Locale.US, "€ %.2f", listaPrezziPizza.get(nome.getText())));
+            prezzo.setText(String.format(Locale.US, "€ %.2f", dbp.getPrezzo(nome.getText())));
 
             prezzo.setPrefHeight(lblPrezzoPizza.getPrefHeight());
             prezzo.setPrefWidth(lblPrezzoPizza.getPrefWidth());

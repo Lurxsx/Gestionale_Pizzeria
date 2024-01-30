@@ -60,14 +60,12 @@ public class DatabasePizze {
             riga = bw.readLine();
             String[] parti = riga.split(", ");
             String nomePizza = parti[0];
-            List<String> ingredienti = new ArrayList<>();
-            for (int j = 2; i < parti.length; i++) {
-                ingredienti.add(parti[i]);
-            }
+            List<String> ingredienti = Arrays.asList(Arrays.copyOfRange(parti, 2, parti.length));
             pizzaMap.put(nomePizza, ingredienti);
         }
         return pizzaMap;
     }
+
 
     public List<String> getIngredienti(String nome) throws IOException {
         String riga;
