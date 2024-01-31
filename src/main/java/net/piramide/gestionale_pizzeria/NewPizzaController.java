@@ -122,9 +122,10 @@ public class NewPizzaController {
 
                 // Stampa di debug
                 System.out.println("Ingrediente aggiunto alla pizza: " + selectedIngredient);
-
                 // Notifica all'adapter che i dati sono cambiati
 //                this.adapter.notifyDataSetChanged();
+                ingredientiListView.getItems().clear();
+                ingredientiListView.getItems().addAll(newPizza.getIngredienti());
             }
         });
 
@@ -139,6 +140,8 @@ public class NewPizzaController {
             newPizza.rimuoviIngrediente(ingredienteSelezionato);
             System.out.println("Ingredienti rimossi: " + newPizza.getIngredienti());
             ingredientiSelezionati.remove(ingredienteSelezionato); // Aggiorna l'interfaccia utente
+            ingredientiListView.getItems().clear();
+            ingredientiListView.getItems().addAll(newPizza.getIngredienti());
         }
     }
 
