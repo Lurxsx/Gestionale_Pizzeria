@@ -140,7 +140,7 @@ public class TakeOrderController {
 
     public void onConfirmButtonClick(ActionEvent event) throws IOException {
         if(txtCity.getText() != null && txtIndirizzo.getText() != null && txtNom.getText() != null && txtTel.getText() != null /*&& listaPizze.size() > 1*/) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("main-menu.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("mainMenu.fxml"));
             Parent root = loader.load();
 
             // Ottieni il controller del GestionaleController

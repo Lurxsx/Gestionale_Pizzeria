@@ -13,7 +13,7 @@ public class GestionaleApplication extends Application {
     public void start(Stage stage) throws IOException {
 
 
-        FXMLLoader fxmlLoader = new FXMLLoader(GestionaleApplication.class.getResource("main-menu.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(GestionaleApplication.class.getResource("mainMenu.fxml"));
         Parent root = fxmlLoader.load();
         Scene mainMenuScene = new Scene(root);
 
@@ -24,12 +24,7 @@ public class GestionaleApplication extends Application {
         // Chiama il metodo setSistema del controller
         gestionaleController.setSistema(sistema);
 
-        FXMLLoader currentOrderLoader = new FXMLLoader(GestionaleApplication.class.getResource("main-menu.fxml"));
-        root = currentOrderLoader.load();
-        Scene currentOrderScene = new Scene(root);
 
-        gestionaleController.setStage(stage);
-        gestionaleController.setScene(currentOrderScene);
 
         stage.setTitle("GESTIONALE");
         stage.setScene(mainMenuScene);

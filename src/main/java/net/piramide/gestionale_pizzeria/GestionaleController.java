@@ -33,7 +33,7 @@ public class GestionaleController {
 
 
     public void switchToTakeOrder(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("take_order.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("takeOrder.fxml"));
         Parent root = loader.load();
 
         // Ottieni il controller del TakeOrderController
@@ -49,10 +49,22 @@ public class GestionaleController {
     }
 
 
-    public void switchToCurrentOrders(ActionEvent actionEvent) {
+    public void switchToCurrentOrders(ActionEvent actionEvent) throws IOException {
+        FXMLLoader currentOrdersLoader = new FXMLLoader(getClass().getResource("currentOrders.fxml"));
+        Parent root = currentOrdersLoader.load();
 
-        mainStage.setScene(currentScene);
-        mainStage.show();
+        // Ottieni il controller del CurrentOrderController
+        CurrentOrdersController currentOrdersController = currentOrdersLoader.getController();
+
+        // Passa il sistema al CurrentOrderController
+        currentOrdersController.setSistema(this.Sistema);
+
+        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+
+
 
     }
 }

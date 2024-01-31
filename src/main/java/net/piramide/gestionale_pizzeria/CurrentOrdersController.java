@@ -12,8 +12,13 @@ import java.util.Date;
 
 public class CurrentOrdersController {
 
+    private Sistema sistema;
+
     public void setGestionale(GestionaleController gestionale) {
         this.gestionale = gestionale;
+    }
+    public void setSistema(Sistema sistema){
+        this.sistema = sistema;
     }
 
     private GestionaleController gestionale;
@@ -32,6 +37,44 @@ public class CurrentOrdersController {
 
 
     }
+/*
+    private void copyAnchorPane(AnchorPane sourceAnchorPane, AnchorPane targetAnchorPane) {
+        // Rimuovi tutti gli elementi esistenti dal targetAnchorPane
+        targetAnchorPane.getChildren().clear();
+
+        // Clona gli elementi dall'AnchorPane sorgente al nuovo AnchorPane
+        for (Node node : sourceAnchorPane.getChildren()) {
+            Node clonedNode = cloneNode(node);
+            targetAnchorPane.getChildren().add(clonedNode);
+        }
+
+        // Copia le proprietà specifiche dell'AnchorPane
+        targetAnchorPane.setPrefSize(sourceAnchorPane.getPrefWidth(), sourceAnchorPane.getPrefHeight());
+        targetAnchorPane.setLayoutX(sourceAnchorPane.getLayoutX());
+        targetAnchorPane.setLayoutY(sourceAnchorPane.getLayoutY());
+        // ... Altre proprietà specifiche dell'AnchorPane ...
+
+        // Puoi anche copiare altri attributi o stili se necessario
+        targetAnchorPane.setStyle(sourceAnchorPane.getStyle());
+    }
+
+    private Node cloneNode(Node sourceNode) {
+        if (sourceNode instanceof Label) {
+            Label sourceLabel = (Label) sourceNode;
+            Label clonedLabel = new Label(sourceLabel.getText());
+            // Copia altre proprietà specifiche del Label se necessario
+            // clonedLabel.setXXX(sourceLabel.getXXX());
+            return clonedLabel;
+        }
+        // Puoi aggiungere casi per altri tipi di nodi se necessario
+
+        // Ritorna una copia di base se il tipo di nodo non è gestito
+        return new Label("Cloned Node");
+    }
+
+
+
+ */
 
     private void updateClock(ActionEvent event) {
         // Ottenere l'orario corrente
