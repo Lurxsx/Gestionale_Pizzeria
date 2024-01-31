@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
@@ -33,19 +34,22 @@ public class NewPizzaController {
     private Button confirmPizzaButton;
     public static String stringaprova;
     public static Pizza newPizza;
-
+    DatabasePizze dbp = new DatabasePizze();
     private Sistema Sistema;
-    public void initialize() {
+    public void initialize() throws IOException {
         //HASHMAP per pizza = ingredienti
-        pizzaIngredienti = new HashMap<>();
-        pizzaIngredienti.put("Margherita", List.of("salsa di pomodoro", "mozzarella"));
-        pizzaIngredienti.put("Marinara", List.of("salsa di pomodoro", "aglio", "origano"));
-        pizzaIngredienti.put("Diavola", List.of("salsa di pomodoro", "mozzarella", "salame piccante"));
+        pizzaIngredienti = dbp.getPizzaIngredientsHashMap();
+
 
         ObservableList<String> pizzaList = FXCollections.observableArrayList(pizzaIngredienti.keySet());
         searchableComboBox.setItems(pizzaList);
 
-        searchableComboBox.setOnAction(event -> handlePizzaSelection());
+        searchableComboBox.setOnAction(event -> {
+            try {
+                handlePizzaSelection();
+            } catch (IOException e) {
+            }
+        });
 
 
 
@@ -53,7 +57,7 @@ public class NewPizzaController {
         //searchableComboBox.getItems().addAll(items);
     }
 
-    private void handlePizzaSelection() {
+    private void handlePizzaSelection() throws IOException {
         // Gestisci la selezione della pizza qui
         String pizzaSelezionata = searchableComboBox.getValue();
         List<String> ingredienti = pizzaIngredienti.get(pizzaSelezionata);

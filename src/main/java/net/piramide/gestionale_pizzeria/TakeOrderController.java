@@ -46,6 +46,9 @@ public class TakeOrderController {
     Ordine ordine;
     Map<String, Double> listaPrezziPizza;
     private Sistema Sistema;
+    Pizza nuovaPizza;
+
+    DatabasePizze dbp = new DatabasePizze();
     public void initialize() { //inizializazione
         ordine = new Ordine();  //creazione istanza Ordine
         listaPizze = new ArrayList<>(); //creazione lista pizze (vuota)
@@ -53,9 +56,7 @@ public class TakeOrderController {
         listaPrezziPizza= new HashMap<>();
 
         // Aggiunta degli elementi alla mappa
-        listaPrezziPizza.put("Pizza Margherita", 5.00);
-        listaPrezziPizza.put("Pizza Diavola", 7.00);
-        listaPrezziPizza.put("Pizza Marinara", 4.00);
+
 
     }
 
@@ -69,14 +70,14 @@ public class TakeOrderController {
         Stage stage = new Stage();
         stage.setScene(new Scene(root1));
         stage.showAndWait();
-        Pizza nuovaPizza = NewPizzaController.newPizza; //l'oggetto creato nell'altro controller viene copiato in modo da avere le info sulla pizza
+        nuovaPizza = NewPizzaController.newPizza; //l'oggetto creato nell'altro controller viene copiato in modo da avere le info sulla pizza
         listaPizze.add(listaPizze.size(), nuovaPizza); //aggiunta nuova pizza nella lista delle pizze ordinate
         ordine.setPizze(listaPizze); //aggiunta lista di pizze all'ordine, instanza della classe Ordine
         updateList();
 
     }
 
-    public void updateList(){   //AGGIORNA LA LISTA DELLE PIZZE ORDINATE
+    public void updateList() throws IOException {   //AGGIORNA LA LISTA DELLE PIZZE ORDINATE
         VboxLista.getChildren().clear(); //cancella tutto il contenuto della Vbox
         for (int i = 0; i < listaPizze.size(); i++) { //per ogni ciclo, crea un nuovo bottone con le informazioni della pizza
             Button button = new Button();
@@ -92,11 +93,12 @@ public class TakeOrderController {
 
         //parte del vBoxListaPrezzi
         //vBoxListaPrezzi.getChildren().clear(); //cancella tutto il contenuto della Vbox
-        System.out.println(lblNomePizza.getText());
-        System.out.println(lblPrezzoPizza.getText());
+        //System.out.println(lblNomePizza.getText());
+        //System.out.println(lblPrezzoPizza.getText());
 
         vBoxListaPrezzi.getChildren().clear();
         for (int i = 0; i < listaPizze.size(); i++) {
+
             AnchorPane anchorPane = new AnchorPane();
             anchorPane.setStyle(APContenitorePizzaPrezzo.getStyle());
             anchorPane.setPrefHeight(APContenitorePizzaPrezzo.getPrefHeight());
@@ -115,7 +117,7 @@ public class TakeOrderController {
             prezzo.setFont(lblPrezzoPizza.getFont());
 
             // Formatta il prezzo con due decimali e il simbolo dell'euro
-            prezzo.setText(String.format(Locale.US, "€ %.2f", listaPrezziPizza.get(nome.getText())));
+            prezzo.setText(String.format(Locale.US, "€ %.2f",listaPizze.get(i).getPrezzo()));
 
             prezzo.setPrefHeight(lblPrezzoPizza.getPrefHeight());
             prezzo.setPrefWidth(lblPrezzoPizza.getPrefWidth());
@@ -130,16 +132,22 @@ public class TakeOrderController {
 
 
         //parte dell'aggiornamenteo del prezzp
+        // parte dell'aggiornamento del prezzo
         double SommaTotale = 0;
         for (int i = 0; i < listaPizze.size(); i++) {
-            SommaTotale = SommaTotale + listaPrezziPizza.get(listaPizze.get(i).getNome());
+            SommaTotale = SommaTotale + listaPizze.get(i).getPrezzo();
         }
-        System.out.println(SommaTotale);
+        lblPrezzoTotale.setText(String.format(Locale.US, "€ %.2f", SommaTotale));
+
+        //System.out.println(SommaTotale);
         lblPrezzoTotale.setText(String.format(Locale.US, "€ %.2f", SommaTotale));
     }
 
     public void onConfirmButtonClick(ActionEvent event) throws IOException {
-        if(txtCity.getText() != null && txtIndirizzo.getText() != null && txtNom.getText() != null && txtTel.getText() != null /*&& listaPizze.size() > 1*/) {
+        if(!txtCity.getText().equals("") && !txtIndirizzo.getText().equals("") && !txtNom.getText().equals("") && !txtTel.getText().equals("")) {
+            Ordine Ordine = new Ordine(listaPizze, txtNom.getText(),txtIndirizzo.getText(), txtNom.getText(), 1);
+            Sistema.make_Order(Ordine);
+            System.out.println("Il sistema ha ora " + Sistema.getCountOrdini() + " ordini");
             FXMLLoader loader = new FXMLLoader(getClass().getResource("main-menu.fxml"));
             Parent root = loader.load();
 
