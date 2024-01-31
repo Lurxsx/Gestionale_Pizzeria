@@ -5,7 +5,9 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.layout.*;
 import javafx.util.Duration;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -13,6 +15,12 @@ import java.util.Date;
 public class CurrentOrdersController {
 
     private Sistema sistema;
+    @FXML
+    private VBox vboxOrdini;
+    @FXML
+    private HBox hboxOrdini;
+    @FXML
+    private AnchorPane anchorOrdine;
 
     public void setGestionale(GestionaleController gestionale) {
         this.gestionale = gestionale;
@@ -37,8 +45,51 @@ public class CurrentOrdersController {
 
 
     }
+    public void onTestClick(ActionEvent actionEvent) {
+
+        if (hboxOrdini.getChildren().size() >= 5) {
+            HBox hbox = new HBox();
+            copyHbox(hboxOrdini, hbox);
+            vboxOrdini.getChildren().add(hbox);
+            hboxOrdini = hbox;
+            hboxOrdini.getChildren().clear();
+
+            AnchorPane anchorOrdine1 = new AnchorPane();
+            copyAnchorPane(anchorOrdine, anchorOrdine1);
+            hbox.getChildren().add(0, anchorOrdine1);
+        } else {
+            AnchorPane anchorOrdine1 = new AnchorPane();
+            copyAnchorPane(anchorOrdine, anchorOrdine1);
+            hboxOrdini.getChildren().add(0, anchorOrdine1);
+        }
 /*
+
+        AnchorPane anchorOrdine1 = new AnchorPane();
+        copyAnchorPane(anchorOrdine, anchorOrdine1);
+        hboxOrdini.getChildren().add(0, anchorOrdine1);
+*/
+    }
+
     private void copyAnchorPane(AnchorPane sourceAnchorPane, AnchorPane targetAnchorPane) {
+        // Rimuovi tutti gli elementi esistenti dal targetAnchorPane
+        targetAnchorPane.getChildren().clear();
+
+        // Clona gli elementi dall'AnchorPane sorgente al nuovo AnchorPane
+        for (Node node : sourceAnchorPane.getChildren()) {
+            Node clonedNode = cloneNode(node);
+            targetAnchorPane.getChildren().add(clonedNode);
+        }
+
+        // Copia le proprietà specifiche dell'AnchorPane
+        targetAnchorPane.setPrefSize(sourceAnchorPane.getPrefWidth(), sourceAnchorPane.getPrefHeight());
+        targetAnchorPane.setLayoutX(sourceAnchorPane.getLayoutX());
+        targetAnchorPane.setLayoutY(sourceAnchorPane.getLayoutY());
+        // ... Altre proprietà specifiche dell'AnchorPane ...
+
+        // Puoi anche copiare altri attributi o stili se necessario
+        targetAnchorPane.setStyle(sourceAnchorPane.getStyle());
+    }
+    private void copyHbox(HBox sourceAnchorPane, HBox targetAnchorPane) {
         // Rimuovi tutti gli elementi esistenti dal targetAnchorPane
         targetAnchorPane.getChildren().clear();
 
@@ -71,10 +122,6 @@ public class CurrentOrdersController {
         // Ritorna una copia di base se il tipo di nodo non è gestito
         return new Label("Cloned Node");
     }
-
-
-
- */
 
     private void updateClock(ActionEvent event) {
         // Ottenere l'orario corrente
