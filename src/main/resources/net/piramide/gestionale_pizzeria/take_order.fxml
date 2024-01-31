@@ -13,7 +13,7 @@
     <children>
         <ScrollPane layoutX="976.0" layoutY="-1.0" prefHeight="561.0" prefWidth="305.0" style="-fx-border-color: #000000; -fx-border-width: 5;">
          <content>
-            <VBox fx:id="vBoxListaPrezzi" prefWidth="294.0" />
+            <VBox fx:id="vBoxListaPrezzi" prefWidth="291.0" />
          </content></ScrollPane>
         <AnchorPane layoutX="976.0" layoutY="555.0" prefHeight="165.0" prefWidth="305.0" style="-fx-border-color: #000000; -fx-border-width: 6; -fx-background-color: #ff7d7d;">
             <children>

@@ -1,6 +1,7 @@
 package net.piramide.gestionale_pizzeria;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Pizza {
@@ -10,13 +11,34 @@ public class Pizza {
     private String dimensione;
     private List<String> ingredienti;
 
+    private boolean modificato = false;
+
     public Pizza(String nome, String dimensione, List<String> ingredienti) throws IOException {
         this.nome = nome;
         this.dimensione = dimensione;
-        this.ingredienti = ingredienti;
+        this.ingredienti = new ArrayList<>(ingredienti);  // Creare una nuova ArrayList
         stabilisciprezzo();
     }
 
+
+    public void setModificato(boolean modificato) {
+        this.modificato = modificato;
+    }
+
+    public void aggiungiIngrediente(String ingrediente) {
+        if (!ingredienti.contains(ingrediente)) {
+            ingredienti.add(ingrediente);
+            modificato = true;
+        }
+    }
+
+    public void rimuoviIngrediente(String ingrediente) {
+        if (ingredienti.contains(ingrediente)) {
+            ingredienti.remove(ingrediente);
+            modificato = true;
+        }
+        System.out.println("ingrediente: " + ingrediente + " rimosso con successo");
+    }
 
     public void stabilisciprezzo() throws IOException {
         String DaRimuovere = "Pizza";

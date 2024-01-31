@@ -64,17 +64,40 @@ public class TakeOrderController {
         this.Sistema = Sistema;
     }
 
-    public void onNewPizzaButtonClick(ActionEvent actionEvent) throws IOException { //Azione bottone "NUOVA PIZZA"
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("newPizza.fxml")); //crea una nuova pagina con il file "newPizza.fxml"
-        Parent root1 = (Parent) fxmlLoader.load();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root1));
-        stage.showAndWait();
-        nuovaPizza = NewPizzaController.newPizza; //l'oggetto creato nell'altro controller viene copiato in modo da avere le info sulla pizza
-        listaPizze.add(listaPizze.size(), nuovaPizza); //aggiunta nuova pizza nella lista delle pizze ordinate
-        ordine.setPizze(listaPizze); //aggiunta lista di pizze all'ordine, instanza della classe Ordine
-        updateList();
+    public void onNewPizzaButtonClick(ActionEvent actionEvent) throws IOException {
+        NewPizzaController.newPizza = null;
+        try {
+            // Azione bottone "NUOVA PIZZA"
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("newPizza.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
 
+            // Disabilita la finestra sottostante
+            Node root2 = ((Node) actionEvent.getSource()).getScene().getRoot();
+            root2.setDisable(true);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root1));
+
+            // Aggiungi un listener per gestire la chiusura della nuova finestra
+            stage.setOnHiding(event -> {
+                // Riabilita la finestra sottostante quando la nuova finestra è chiusa
+                root2.setDisable(false);
+            });
+
+            stage.showAndWait();
+
+            // Azzeramento della pizza corrente
+
+            // Se la nuova pizza è valida, la aggiungi alla lista
+            if (NewPizzaController.newPizza != null) {
+                listaPizze.add(listaPizze.size(), NewPizzaController.newPizza);
+                ordine.setPizze(listaPizze);
+                updateList();
+            }
+        } catch (Exception e) {
+            // Gestisci eventuali eccezioni qui
+            e.printStackTrace();
+        }
     }
 
     public void updateList() throws IOException {   //AGGIORNA LA LISTA DELLE PIZZE ORDINATE

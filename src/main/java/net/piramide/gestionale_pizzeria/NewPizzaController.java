@@ -24,7 +24,7 @@ import org.controlsfx.control.CheckComboBox;
 import org.controlsfx.control.SearchableComboBox;
 
 public class NewPizzaController {
-
+    private ObservableList<String> ingredientiSelezionati = FXCollections.observableArrayList();
     @FXML
     private SearchableComboBox<String> searchableComboBox;
     @FXML
@@ -82,4 +82,26 @@ public class NewPizzaController {
     private void closeStage() {
         ((Stage) confirmPizzaButton.getScene().getWindow()).close();
     }
+
+    public void onAggiungiButtonClick(ActionEvent event) {
+        // Aggiungi l'ingrediente selezionato alla lista
+        String ingredienteSelezionato = ingredientiListView.getSelectionModel().getSelectedItem();
+        if (ingredienteSelezionato != null) {
+            ingredientiSelezionati.add(ingredienteSelezionato);
+        }
+        System.out.println("ingredienti aggiunti" + ingredientiSelezionati);
+        newPizza.setModificato(true);
+    }
+
+    public void onTogliButtonClick(ActionEvent event) {
+        // Rimuovi l'ingrediente selezionato dalla lista
+        String ingredienteSelezionato = ingredientiListView.getSelectionModel().getSelectedItem();
+        if (ingredienteSelezionato != null) {
+            newPizza.rimuoviIngrediente(ingredienteSelezionato);
+            System.out.println("Ingredienti rimossi: " + newPizza.getIngredienti());
+            ingredientiSelezionati.remove(ingredienteSelezionato); // Aggiorna l'interfaccia utente
+            newPizza.setModificato(true);
+        }
+    }
+
 }
