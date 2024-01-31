@@ -24,6 +24,8 @@ import org.controlsfx.control.CheckComboBox;
 import org.controlsfx.control.SearchableComboBox;
 
 public class NewPizzaController {
+    private ObservableList<String> ingredientiObservableList;
+
     private ObservableList<String> ingredientiSelezionati = FXCollections.observableArrayList();
     @FXML
     private SearchableComboBox<String> searchableComboBox;
@@ -37,6 +39,10 @@ public class NewPizzaController {
     DatabasePizze dbp = new DatabasePizze();
     private Sistema Sistema;
     public void initialize() throws IOException {
+        // Inizializza l'ObservableList
+        ingredientiObservableList = FXCollections.observableArrayList();
+        ingredientiListView.setItems(ingredientiObservableList);
+
         //HASHMAP per pizza = ingredienti
         pizzaIngredienti = dbp.getPizzaIngredientsHashMap();
 
@@ -64,8 +70,7 @@ public class NewPizzaController {
 
         if (ingredienti != null) {
             System.out.println("Ingredienti per la pizza " + pizzaSelezionata + ": " + ingredienti);
-            ObservableList<String> ingredientiObservableList = FXCollections.observableArrayList(ingredienti);
-            ingredientiListView.setItems(ingredientiObservableList);
+            ingredientiObservableList.setAll(ingredienti);
             newPizza = new Pizza("Pizza " + pizzaSelezionata, "normale", ingredienti);
         } else {
             System.out.println("Pizza non trovata: " + pizzaSelezionata);
@@ -83,15 +88,49 @@ public class NewPizzaController {
         ((Stage) confirmPizzaButton.getScene().getWindow()).close();
     }
 
-    public void onAggiungiButtonClick(ActionEvent event) {
-        // Aggiungi l'ingrediente selezionato alla lista
-        String ingredienteSelezionato = ingredientiListView.getSelectionModel().getSelectedItem();
-        if (ingredienteSelezionato != null) {
-            ingredientiSelezionati.add(ingredienteSelezionato);
-        }
-        System.out.println("ingredienti aggiunti" + ingredientiSelezionati);
-        newPizza.setModificato(true);
+    public void onAggiungiButtonClick(ActionEvent actionEvent) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("IngredientiAggiungereController.fxml"));
+        Parent root1 = (Parent) fxmlLoader.load();
+
+        // Disabilita la finestra sottostante
+        Node root2 = ((Node) actionEvent.getSource()).getScene().getRoot();
+        root2.setDisable(true);
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root1));
+
+        // Ottieni il controller degli ingredienti
+        IngredientiAggiungereController ingredientiAggiungereController = fxmlLoader.getController();
+
+        // Aggiungi un listener per gestire la chiusura della nuova finestra
+        stage.setOnHiding(event -> {
+            // Riabilita la finestra principale quando la finestra degli ingredienti è chiusa
+            root2.setDisable(false);
+
+            // Ottieni l'ingrediente selezionato dal controller degli ingredienti
+            String selectedIngredient = ingredientiAggiungereController.getSelectedIngredient();
+            System.out.println("Ingrediente selezionato: " + selectedIngredient);
+
+            // Esegui le azioni necessarie con l'ingrediente selezionato
+            // Ad esempio, puoi aggiungerlo alla pizza o fare altre operazioni
+            if (selectedIngredient != null && !selectedIngredient.isEmpty()) {
+                newPizza.aggiungiIngrediente(selectedIngredient);
+                ingredientiSelezionati.add(selectedIngredient);
+
+                // Aggiorna l'interfaccia utente o esegui altre azioni necessarie
+                // ...
+
+                // Stampa di debug
+                System.out.println("Ingrediente aggiunto alla pizza: " + selectedIngredient);
+
+                // Notifica all'adapter che i dati sono cambiati
+//                this.adapter.notifyDataSetChanged();
+            }
+        });
+
+        stage.showAndWait();
     }
+
 
     public void onTogliButtonClick(ActionEvent event) {
         // Rimuovi l'ingrediente selezionato dalla lista
@@ -100,7 +139,6 @@ public class NewPizzaController {
             newPizza.rimuoviIngrediente(ingredienteSelezionato);
             System.out.println("Ingredienti rimossi: " + newPizza.getIngredienti());
             ingredientiSelezionati.remove(ingredienteSelezionato); // Aggiorna l'interfaccia utente
-            newPizza.setModificato(true);
         }
     }
 
