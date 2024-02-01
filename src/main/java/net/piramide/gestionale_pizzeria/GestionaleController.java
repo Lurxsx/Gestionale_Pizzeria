@@ -16,12 +16,12 @@ public class GestionaleController {
     private Stage stage;
     private Scene scene;
     private Parent root;
-    private Sistema Sistema;
+    private Sistema sistema;
     private Stage mainStage;
     private Scene currentScene;
 
-    public void setSistema(Sistema Sistema){
-        this.Sistema = Sistema;
+    public void setSistema(Sistema sistema){
+        this.sistema = sistema;
     }
     public void setStage(Stage stage){
         this.mainStage = stage;
@@ -29,7 +29,6 @@ public class GestionaleController {
     public void setScene(Scene scene){
         this.currentScene = scene;
     }
-
 
 
     public void switchToTakeOrder(ActionEvent event) throws IOException {
@@ -40,7 +39,7 @@ public class GestionaleController {
         TakeOrderController takeOrderController = loader.getController();
 
         // Passa il sistema al TakeOrderController
-        takeOrderController.setSistema(this.Sistema);
+        takeOrderController.setSistema(this.sistema);
 
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -57,14 +56,20 @@ public class GestionaleController {
         CurrentOrdersController currentOrdersController = currentOrdersLoader.getController();
 
         // Passa il sistema al CurrentOrderController
-        currentOrdersController.setSistema(this.Sistema);
+        currentOrdersController.setSistema(this.sistema);
 
         stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
 
+    }
 
+    public Sistema getSistema() {
+        return sistema;
+    }
 
+    public void onTestButtonClicka(ActionEvent actionEvent) {
+        System.out.println(sistema.getCountOrdini());
     }
 }

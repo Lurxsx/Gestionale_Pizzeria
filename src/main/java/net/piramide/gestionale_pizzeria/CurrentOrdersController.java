@@ -30,8 +30,8 @@ public class CurrentOrdersController {
     public void setGestionale(GestionaleController gestionale) {
         this.gestionale = gestionale;
     }
-    public void setSistema(Sistema sistema){
-        this.sistema = sistema;
+    public void setSistema(Sistema sistema1){
+        this.sistema = sistema1;
     }
 
     private GestionaleController gestionale;
@@ -41,13 +41,14 @@ public class CurrentOrdersController {
 
     @FXML
     private void initialize() {
+
         // Creazione della timeline per aggiornare l'orario ogni secondo
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.seconds(1), this::updateClock)
         );
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
-        //updateOrderPostit();
+
 
     }
 
@@ -55,6 +56,7 @@ public class CurrentOrdersController {
         for (int i = 0; i < sistema.getCountOrdini(); i++) {
             newOrdinePostit(sistema.getOrdineAt(i));
         }
+        System.out.println(sistema.getCountOrdini());
     }
 
     private void newOrdinePostit(Ordine ordine){
