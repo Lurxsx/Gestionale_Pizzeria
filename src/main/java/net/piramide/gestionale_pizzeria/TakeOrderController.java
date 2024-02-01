@@ -6,9 +6,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -176,7 +174,6 @@ public class TakeOrderController {
     }
 
     public void onConfirmButtonClick(ActionEvent event) throws IOException {
-
         if(!txtCity.getText().equals("") && !txtIndirizzo.getText().equals("") && !txtNom.getText().equals("") && !txtTel.getText().equals("")) {
             Ordine Ordine = new Ordine(listaPizze, txtNom.getText(),txtIndirizzo.getText(), txtNom.getText(), 1);
             Sistema.make_Order(Ordine);
@@ -196,4 +193,40 @@ public class TakeOrderController {
             stage.show();
         }
     }
+
+    public void onIndietroButtonClick(ActionEvent event) throws IOException {
+        // Creazione di un alert di conferma
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Conferma Indietro");
+        alert.setHeaderText("Sei sicuro di voler tornare al Gestionale?");
+
+        // Configurazione dei pulsanti dell'alert
+        alert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
+
+        // Visualizza l'alert e attendi la risposta
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.YES) {
+                try {
+                    // Carica il GestionaleController
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("mainMenu.fxml"));
+                    Parent root = loader.load();
+
+                    // Ottieni il controller del GestionaleController
+                    GestionaleController gestionaleController = loader.getController();
+
+                    // Passa il sistema al GestionaleController
+                    gestionaleController.setSistema(this.Sistema);
+
+                    // Cambia la scena
+                    stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    scene = new Scene(root);
+                    stage.setScene(scene);
+                    stage.show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
 }
