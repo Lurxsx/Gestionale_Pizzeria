@@ -6,10 +6,13 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.util.Duration;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -75,7 +78,7 @@ public class CurrentOrdersController {
         // Rimuovi tutti gli elementi esistenti dal targetAnchorPane
         targetAnchorPane.getChildren().clear();
 
-        // Clona gli elementi dall'AnchorPane sorgente al nuovo AnchorPane
+        // Copia gli elementi dall'AnchorPane sorgente al nuovo AnchorPane
         for (Node node : sourceAnchorPane.getChildren()) {
             Node clonedNode = cloneNode(node);
             targetAnchorPane.getChildren().add(clonedNode);
@@ -87,9 +90,9 @@ public class CurrentOrdersController {
         targetAnchorPane.setLayoutY(sourceAnchorPane.getLayoutY());
         // ... Altre proprietà specifiche dell'AnchorPane ...
 
-        // Puoi anche copiare altri attributi o stili se necessario
         targetAnchorPane.setStyle(sourceAnchorPane.getStyle());
     }
+
     private void copyHbox(HBox sourceAnchorPane, HBox targetAnchorPane) {
         // Rimuovi tutti gli elementi esistenti dal targetAnchorPane
         targetAnchorPane.getChildren().clear();
@@ -114,22 +117,89 @@ public class CurrentOrdersController {
         if (sourceNode instanceof Label) {
             Label sourceLabel = (Label) sourceNode;
             Label clonedLabel = new Label(sourceLabel.getText());
-            // Copia altre proprietà specifiche del Label se necessario
+
+            // Copia le proprietà specifiche del Label
             clonedLabel.setLayoutX(sourceLabel.getLayoutX());
             clonedLabel.setLayoutY(sourceLabel.getLayoutY());
+            clonedLabel.setPrefWidth(sourceLabel.getPrefWidth());
+            clonedLabel.setPrefHeight(sourceLabel.getPrefHeight());
+
+            // Copia le proprietà del Font
+            Font sourceFont = sourceLabel.getFont();
+            Font clonedFont = Font.font(
+                    sourceFont.getFamily(),
+                    sourceFont.getSize()
+            );
+
+            // Check if the original font is bold and set the cloned font accordingly
+            if (sourceFont.getStyle().equals("Bold")) {
+                clonedFont = Font.font(
+                        sourceFont.getFamily(),
+                        FontWeight.BOLD,
+                        sourceFont.getSize()
+                );
+            }
+            clonedLabel.setFont(clonedFont);
+            clonedLabel.setAlignment(sourceLabel.getAlignment());
+
             return clonedLabel;
         } else if (sourceNode instanceof Button) {
-            // Aggiungi gestione per il pulsante se necessario
+            Button sourceButton = (Button) sourceNode;
+            Button clonedButton = new Button(sourceButton.getText());
+            // Copia altre proprietà specifiche del Button
+            clonedButton.setLayoutX(sourceButton.getLayoutX());
+            clonedButton.setLayoutY(sourceButton.getLayoutY());
+            clonedButton.setPrefWidth(sourceButton.getPrefWidth());
+            clonedButton.setPrefHeight(sourceButton.getPrefHeight());
+            return clonedButton;
         } else if (sourceNode instanceof ScrollPane) {
-            // Aggiungi gestione per la ScrollPane se necessario
+            ScrollPane sourceScrollPane = (ScrollPane) sourceNode;
+            ScrollPane clonedScrollPane = new ScrollPane();
+            // Copia altre proprietà specifiche dello ScrollPane
+            clonedScrollPane.setLayoutX(sourceScrollPane.getLayoutX());
+            clonedScrollPane.setLayoutY(sourceScrollPane.getLayoutY());
+            clonedScrollPane.setPrefWidth(sourceScrollPane.getPrefWidth());
+            clonedScrollPane.setPrefHeight(sourceScrollPane.getPrefHeight());
+
+            Node content = cloneNode(sourceScrollPane.getContent());
+            clonedScrollPane.setContent(content);
+            return clonedScrollPane;
         } else if (sourceNode instanceof VBox) {
-            // Aggiungi gestione per la VBox se necessario
+            VBox sourceVBox = (VBox) sourceNode;
+            VBox clonedVBox = new VBox();
+            // Copia altre proprietà specifiche del VBox
+            clonedVBox.setLayoutX(sourceVBox.getLayoutX());
+            clonedVBox.setLayoutY(sourceVBox.getLayoutY());
+            clonedVBox.setPrefWidth(sourceVBox.getPrefWidth());
+            clonedVBox.setPrefHeight(sourceVBox.getPrefHeight());
+
+            for (Node child : sourceVBox.getChildren()) {
+                Node clonedChild = cloneNode(child);
+                clonedVBox.getChildren().add(clonedChild);
+            }
+            return clonedVBox;
+        } else if (sourceNode instanceof AnchorPane) {
+            AnchorPane sourceAnchorPane = (AnchorPane) sourceNode;
+            AnchorPane clonedAnchorPane = new AnchorPane();
+            // Copia altre proprietà specifiche dell'AnchorPane
+            clonedAnchorPane.setLayoutX(sourceAnchorPane.getLayoutX());
+            clonedAnchorPane.setLayoutY(sourceAnchorPane.getLayoutY());
+            clonedAnchorPane.setPrefWidth(sourceAnchorPane.getPrefWidth());
+            clonedAnchorPane.setPrefHeight(sourceAnchorPane.getPrefHeight());
+
+            for (Node child : sourceAnchorPane.getChildren()) {
+                Node clonedChild = cloneNode(child);
+                clonedAnchorPane.getChildren().add(clonedChild);
+            }
+            return clonedAnchorPane;
         }
         // Puoi aggiungere casi per altri tipi di nodi se necessario
 
         // Ritorna una copia di base se il tipo di nodo non è gestito
         return new Label("Cloned Node");
     }
+
+
 
     private void updateClock(ActionEvent event) {
         // Ottenere l'orario corrente
