@@ -38,6 +38,7 @@ public class NewPizzaController {
     public static Pizza newPizza;
     DatabasePizze dbp = new DatabasePizze();
     private Sistema Sistema;
+    public static boolean confirmed = false;
     public void initialize() throws IOException {
         // Inizializza l'ObservableList
         ingredientiObservableList = FXCollections.observableArrayList();
@@ -80,6 +81,7 @@ public class NewPizzaController {
 
     public void onConfirmButtonClick(ActionEvent actionEvent) {
         stringaprova = newPizza.getNome();
+        confirmed = true;
         closeStage();
 
     }

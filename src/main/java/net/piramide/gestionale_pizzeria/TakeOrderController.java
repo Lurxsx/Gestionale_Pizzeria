@@ -89,7 +89,7 @@ public class TakeOrderController {
             // Azzeramento della pizza corrente
 
             // Se la nuova pizza è valida, la aggiungi alla lista
-            if (NewPizzaController.newPizza != null) {
+            if (NewPizzaController.newPizza != null && NewPizzaController.confirmed) {
                 listaPizze.add(listaPizze.size(), NewPizzaController.newPizza);
                 ordine.setPizze(listaPizze);
                 updateList();
