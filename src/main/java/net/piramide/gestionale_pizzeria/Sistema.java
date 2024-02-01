@@ -19,6 +19,11 @@ public class Sistema {
 
     }
 
+    public void make_Order(Ordine Ordine){
+        Ordini.add(Ordine);
+        countOrdini++;
+    }
+
     public int getCountOrdini() {
         return countOrdini;
     }

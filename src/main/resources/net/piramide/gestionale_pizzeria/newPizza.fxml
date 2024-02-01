@@ -15,7 +15,7 @@
       <ListView fx:id="ingredientiListView" layoutX="352.0" layoutY="67.0" prefHeight="251.0" prefWidth="200.0" />
       <Label layoutX="391.0" layoutY="32.0" prefHeight="19.0" prefWidth="121.0" text="Ingredienti">
          <font>
-            <Font name="Italic" size="17.0" />
+            <Font name="Italic" size="17.01" />
          </font>
       </Label>
       <Button layoutX="498.0" layoutY="325.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="54.0" text="togli" />
