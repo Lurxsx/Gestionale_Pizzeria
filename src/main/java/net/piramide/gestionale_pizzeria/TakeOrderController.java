@@ -176,11 +176,12 @@ public class TakeOrderController {
     }
 
     public void onConfirmButtonClick(ActionEvent event) throws IOException {
+
         if(!txtCity.getText().equals("") && !txtIndirizzo.getText().equals("") && !txtNom.getText().equals("") && !txtTel.getText().equals("")) {
             Ordine Ordine = new Ordine(listaPizze, txtNom.getText(),txtIndirizzo.getText(), txtNom.getText(), 1);
             Sistema.make_Order(Ordine);
             System.out.println("Il sistema ha ora " + Sistema.getCountOrdini() + " ordini");
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("main-menu.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("mainMenu.fxml"));
             Parent root = loader.load();
 
             // Ottieni il controller del GestionaleController
