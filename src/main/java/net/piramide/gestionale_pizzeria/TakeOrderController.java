@@ -26,16 +26,25 @@ public class TakeOrderController {
     private Stage stage;
     private Scene scene;
     private Parent root;
-
-    public VBox vBoxListaPrezzi;
-    public AnchorPane APContenitorePizzaPrezzo;
-    public Label lblNomePizza;
-    public Label lblPrezzoPizza;
-    public Label lblPrezzoTotale;
-    public TextField txtTel;
-    public TextField txtNom;
-    public TextField txtCity;
-    public TextField txtIndirizzo;
+    @FXML
+    private VBox vBoxListaPrezzi;
+    @FXML
+    private AnchorPane APContenitorePizzaPrezzo;
+    @FXML
+    private Label lblNomePizza;
+    @FXML
+    private Label lblPrezzoPizza;
+    @FXML
+    private Label lblPrezzoTotale;
+    @FXML
+    private TextField txtTel;
+    @FXML
+    private TextField txtNom;
+    @FXML
+    private TextField txtCity;
+    @FXML
+    private TextField txtIndirizzo;
+    @FXML
     private ArrayList<Pizza> listaPizze;
     @FXML
     private Button pizzaListButton;
@@ -65,12 +74,12 @@ public class TakeOrderController {
     }
 
     public void onNewPizzaButtonClick(ActionEvent actionEvent) throws IOException {
-        NewPizzaController.newPizza = null;
+        NewPizzaController.setNewPizza(null);
         try {
             // Azione bottone "NUOVA PIZZA"
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("newPizza.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
-            NewPizzaController.confirmed=false;
+            NewPizzaController.setConfirmed(false); //imposta bottone conferma su false
             // Disabilita la finestra sottostante
             Node root2 = ((Node) actionEvent.getSource()).getScene().getRoot();
             root2.setDisable(true);
@@ -89,8 +98,8 @@ public class TakeOrderController {
             // Azzeramento della pizza corrente
 
             // Se la nuova pizza è valida, la aggiungi alla lista
-            if (NewPizzaController.newPizza != null && NewPizzaController.confirmed) {
-                listaPizze.add(listaPizze.size(), NewPizzaController.newPizza);
+            if (NewPizzaController.getNewPizza() != null && NewPizzaController.isConfirmed()) {
+                listaPizze.add(listaPizze.size(), NewPizzaController.getNewPizza());
                 ordine.setPizze(listaPizze);
                 updateList();
             }

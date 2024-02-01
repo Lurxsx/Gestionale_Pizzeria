@@ -35,10 +35,10 @@ public class NewPizzaController {
     @FXML
     private Button confirmPizzaButton;
     public static String stringaprova;
-    public static Pizza newPizza;
+    private static Pizza newPizza;
     DatabasePizze dbp = new DatabasePizze();
     private Sistema Sistema;
-    public static boolean confirmed = false;
+    private static boolean confirmed = false;
     public void initialize() throws IOException {
         // Inizializza l'ObservableList
         ingredientiObservableList = FXCollections.observableArrayList();
@@ -62,6 +62,22 @@ public class NewPizzaController {
 
         //ObservableList<String> items = FXCollections.observableArrayList("Margherita", "Diavola", "4 formaggi");
         //searchableComboBox.getItems().addAll(items);
+    }
+
+    public static boolean isConfirmed() {
+        return confirmed;
+    }
+
+    public static void setConfirmed(boolean confirmed) {
+        NewPizzaController.confirmed = confirmed;
+    }
+
+    public static Pizza getNewPizza() {
+        return newPizza;
+    }
+
+    public static void setNewPizza(Pizza newPizza) {
+        NewPizzaController.newPizza = newPizza;
     }
 
     private void handlePizzaSelection() throws IOException {
