@@ -21,6 +21,5 @@
                 <Font name="Frank Ruehl CLM Bold" size="28.0" />
             </font>
         </Button>
-      <Button mnemonicParsing="false" onAction="#onTestButtonClicka" text="test" />
     </children>
 </VBox>

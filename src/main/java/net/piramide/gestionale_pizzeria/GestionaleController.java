@@ -69,7 +69,4 @@ public class GestionaleController {
         return sistema;
     }
 
-    public void onTestButtonClicka(ActionEvent actionEvent) {
-        System.out.println(sistema.getCountOrdini());
-    }
 }

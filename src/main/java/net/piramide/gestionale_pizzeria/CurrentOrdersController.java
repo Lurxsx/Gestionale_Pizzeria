@@ -14,6 +14,8 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.util.Duration;
+
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -26,6 +28,7 @@ public class CurrentOrdersController {
     private HBox hboxOrdini;
     @FXML
     private AnchorPane anchorOrdine;
+    private int cycleOrdini=0;
 
     public void setGestionale(GestionaleController gestionale) {
         this.gestionale = gestionale;
@@ -53,13 +56,16 @@ public class CurrentOrdersController {
     }
 
     private void updateOrderPostit(){
+
         for (int i = 0; i < sistema.getCountOrdini(); i++) {
+            cycleOrdini=0;
             newOrdinePostit(sistema.getOrdineAt(i));
         }
         System.out.println(sistema.getCountOrdini());
     }
 
     private void newOrdinePostit(Ordine ordine){
+
         if (hboxOrdini.getChildren().size() >= 5) {
             HBox hbox = new HBox();
             copyHbox(hboxOrdini, hbox, ordine);
@@ -83,6 +89,7 @@ public class CurrentOrdersController {
 
         // Copia gli elementi dall'AnchorPane sorgente al nuovo AnchorPane
         for (Node node : sourceAnchorPane.getChildren()) {
+            cycleOrdini++;
             Node clonedNode = cloneNode(node, ordine);
             targetAnchorPane.getChildren().add(clonedNode);
         }
@@ -102,6 +109,7 @@ public class CurrentOrdersController {
 
         // Clona gli elementi dall'AnchorPane sorgente al nuovo AnchorPane
         for (Node node : sourceAnchorPane.getChildren()) {
+
             Node clonedNode = cloneNode(node, ordine);
             targetAnchorPane.getChildren().add(clonedNode);
         }
@@ -120,7 +128,12 @@ public class CurrentOrdersController {
         if (sourceNode instanceof Label) {
             Label sourceLabel = (Label) sourceNode;
             Label clonedLabel = new Label(sourceLabel.getText());
-            clonedLabel.setText("gang getto bendo");
+            //System.out.println(clonedLabel.getText() + "   --> " + cycleOrdini);
+            if (cycleOrdini==2){
+                DecimalFormat df = new DecimalFormat("000");
+                clonedLabel.setText("Ordine #" + df.format(sistema.getCountOrdini()));
+            }
+
 
             // Copia le proprietà specifiche del Label
             clonedLabel.setLayoutX(sourceLabel.getLayoutX());
@@ -216,7 +229,7 @@ public class CurrentOrdersController {
     }
 
 
-
-
-
+    public void onUpdateButton(ActionEvent actionEvent) {
+        updateOrderPostit();
+    }
 }
