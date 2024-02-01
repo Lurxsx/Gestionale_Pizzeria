@@ -70,7 +70,7 @@ public class TakeOrderController {
             // Azione bottone "NUOVA PIZZA"
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("newPizza.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
-
+            NewPizzaController.confirmed=false;
             // Disabilita la finestra sottostante
             Node root2 = ((Node) actionEvent.getSource()).getScene().getRoot();
             root2.setDisable(true);
