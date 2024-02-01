@@ -6,7 +6,9 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
 import java.text.SimpleDateFormat;
@@ -63,7 +65,6 @@ public class CurrentOrdersController {
             hboxOrdini.getChildren().add(0, anchorOrdine1);
         }
 /*
-
         AnchorPane anchorOrdine1 = new AnchorPane();
         copyAnchorPane(anchorOrdine, anchorOrdine1);
         hboxOrdini.getChildren().add(0, anchorOrdine1);
@@ -114,8 +115,15 @@ public class CurrentOrdersController {
             Label sourceLabel = (Label) sourceNode;
             Label clonedLabel = new Label(sourceLabel.getText());
             // Copia altre proprietà specifiche del Label se necessario
-            // clonedLabel.setXXX(sourceLabel.getXXX());
+            clonedLabel.setLayoutX(sourceLabel.getLayoutX());
+            clonedLabel.setLayoutY(sourceLabel.getLayoutY());
             return clonedLabel;
+        } else if (sourceNode instanceof Button) {
+            // Aggiungi gestione per il pulsante se necessario
+        } else if (sourceNode instanceof ScrollPane) {
+            // Aggiungi gestione per la ScrollPane se necessario
+        } else if (sourceNode instanceof VBox) {
+            // Aggiungi gestione per la VBox se necessario
         }
         // Puoi aggiungere casi per altri tipi di nodi se necessario
 
