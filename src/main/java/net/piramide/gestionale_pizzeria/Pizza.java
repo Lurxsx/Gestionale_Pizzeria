@@ -29,6 +29,7 @@ public class Pizza {
         if (!ingredienti.contains(ingrediente)) {
             ingredienti.add(ingrediente);
             modificato = true;
+            this.prezzo ++;
         }
     }
 
