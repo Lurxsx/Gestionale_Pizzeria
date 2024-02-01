@@ -47,40 +47,41 @@ public class CurrentOrdersController {
         );
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
-
+        //updateOrderPostit();
 
     }
-    public void onTestClick(ActionEvent actionEvent) {
 
+    private void updateOrderPostit(){
+        for (int i = 0; i < sistema.getCountOrdini(); i++) {
+            newOrdinePostit(sistema.getOrdineAt(i));
+        }
+    }
+
+    private void newOrdinePostit(Ordine ordine){
         if (hboxOrdini.getChildren().size() >= 5) {
             HBox hbox = new HBox();
-            copyHbox(hboxOrdini, hbox);
+            copyHbox(hboxOrdini, hbox, ordine);
             vboxOrdini.getChildren().add(hbox);
             hboxOrdini = hbox;
             hboxOrdini.getChildren().clear();
 
             AnchorPane anchorOrdine1 = new AnchorPane();
-            copyAnchorPane(anchorOrdine, anchorOrdine1);
+            copyAnchorPane(anchorOrdine, anchorOrdine1, ordine);
             hbox.getChildren().add(0, anchorOrdine1);
         } else {
             AnchorPane anchorOrdine1 = new AnchorPane();
-            copyAnchorPane(anchorOrdine, anchorOrdine1);
+            copyAnchorPane(anchorOrdine, anchorOrdine1, ordine);
             hboxOrdini.getChildren().add(0, anchorOrdine1);
         }
-/*
-        AnchorPane anchorOrdine1 = new AnchorPane();
-        copyAnchorPane(anchorOrdine, anchorOrdine1);
-        hboxOrdini.getChildren().add(0, anchorOrdine1);
-*/
     }
 
-    private void copyAnchorPane(AnchorPane sourceAnchorPane, AnchorPane targetAnchorPane) {
+    private void copyAnchorPane(AnchorPane sourceAnchorPane, AnchorPane targetAnchorPane, Ordine ordine) {
         // Rimuovi tutti gli elementi esistenti dal targetAnchorPane
         targetAnchorPane.getChildren().clear();
 
         // Copia gli elementi dall'AnchorPane sorgente al nuovo AnchorPane
         for (Node node : sourceAnchorPane.getChildren()) {
-            Node clonedNode = cloneNode(node);
+            Node clonedNode = cloneNode(node, ordine);
             targetAnchorPane.getChildren().add(clonedNode);
         }
 
@@ -93,13 +94,13 @@ public class CurrentOrdersController {
         targetAnchorPane.setStyle(sourceAnchorPane.getStyle());
     }
 
-    private void copyHbox(HBox sourceAnchorPane, HBox targetAnchorPane) {
+    private void copyHbox(HBox sourceAnchorPane, HBox targetAnchorPane, Ordine ordine) {
         // Rimuovi tutti gli elementi esistenti dal targetAnchorPane
         targetAnchorPane.getChildren().clear();
 
         // Clona gli elementi dall'AnchorPane sorgente al nuovo AnchorPane
         for (Node node : sourceAnchorPane.getChildren()) {
-            Node clonedNode = cloneNode(node);
+            Node clonedNode = cloneNode(node, ordine);
             targetAnchorPane.getChildren().add(clonedNode);
         }
 
@@ -113,10 +114,11 @@ public class CurrentOrdersController {
         targetAnchorPane.setStyle(sourceAnchorPane.getStyle());
     }
 
-    private Node cloneNode(Node sourceNode) {
+    private Node cloneNode(Node sourceNode, Ordine ordine) {
         if (sourceNode instanceof Label) {
             Label sourceLabel = (Label) sourceNode;
             Label clonedLabel = new Label(sourceLabel.getText());
+            clonedLabel.setText("gang getto bendo");
 
             // Copia le proprietà specifiche del Label
             clonedLabel.setLayoutX(sourceLabel.getLayoutX());
@@ -161,7 +163,7 @@ public class CurrentOrdersController {
             clonedScrollPane.setPrefWidth(sourceScrollPane.getPrefWidth());
             clonedScrollPane.setPrefHeight(sourceScrollPane.getPrefHeight());
 
-            Node content = cloneNode(sourceScrollPane.getContent());
+            Node content = cloneNode(sourceScrollPane.getContent(), ordine);
             clonedScrollPane.setContent(content);
             return clonedScrollPane;
         } else if (sourceNode instanceof VBox) {
@@ -174,7 +176,7 @@ public class CurrentOrdersController {
             clonedVBox.setPrefHeight(sourceVBox.getPrefHeight());
 
             for (Node child : sourceVBox.getChildren()) {
-                Node clonedChild = cloneNode(child);
+                Node clonedChild = cloneNode(child, ordine);
                 clonedVBox.getChildren().add(clonedChild);
             }
             return clonedVBox;
@@ -188,7 +190,7 @@ public class CurrentOrdersController {
             clonedAnchorPane.setPrefHeight(sourceAnchorPane.getPrefHeight());
 
             for (Node child : sourceAnchorPane.getChildren()) {
-                Node clonedChild = cloneNode(child);
+                Node clonedChild = cloneNode(child, ordine);
                 clonedAnchorPane.getChildren().add(clonedChild);
             }
             return clonedAnchorPane;

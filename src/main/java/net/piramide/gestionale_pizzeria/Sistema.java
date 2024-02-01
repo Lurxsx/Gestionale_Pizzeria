@@ -28,6 +28,13 @@ public class Sistema {
         return countOrdini;
     }
 
+    public ArrayList<Ordine> getOrdini() {
+        return Ordini;
+    }
+    public Ordine getOrdineAt(int i) {
+        return Ordini.get(i);
+    }
+
     public void stampaOrdini(){
         for (Ordine ordine : Ordini) {
             System.out.println(ordine.toString());
