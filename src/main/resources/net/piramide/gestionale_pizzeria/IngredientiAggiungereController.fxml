@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import org.controlsfx.control.SearchableComboBox?>
+
+<AnchorPane prefHeight="107.0" prefWidth="260.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.piramide.gestionale_pizzeria.IngredientiAggiungereController">
+    <children>
+        <SearchableComboBox fx:id="Ingredienti" layoutX="80.0" layoutY="49.0" onAction="#onIngredientiAggiungereClick" prefWidth="100.0" promptText="Ingredienti" />
+        <Label alignment="CENTER" layoutY="14.0" prefHeight="17.0" prefWidth="260.0" text="Quali ingredienti vuoi aggiungere?" />
+    </children>
+</AnchorPane>

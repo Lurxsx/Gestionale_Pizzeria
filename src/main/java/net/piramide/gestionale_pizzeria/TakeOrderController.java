@@ -26,16 +26,26 @@ public class TakeOrderController {
     private Stage stage;
     private Scene scene;
     private Parent root;
-    public VBox vBoxListaPrezzi;
-    public AnchorPane APContenitorePizzaPrezzo;
-    public Label lblNomePizza;
-    public Label lblPrezzoPizza;
-    public Label lblPrezzoTotale;
-    public TextField txtTel;
-    public TextField txtNom;
-    public TextField txtCity;
-    public TextField txtIndirizzo;
-    private ArrayList<Pizza> listaPizze;
+    @FXML
+    private VBox vBoxListaPrezzi;
+    @FXML
+    private AnchorPane APContenitorePizzaPrezzo;
+    @FXML
+    private Label lblNomePizza;
+    @FXML
+    private Label lblPrezzoPizza;
+    @FXML
+    private Label lblPrezzoTotale;
+    @FXML
+    private TextField txtTel;
+    @FXML
+    private TextField txtNom;
+    @FXML
+    private TextField txtCity;
+    @FXML
+    private TextField txtIndirizzo;
+
+    public ArrayList<Pizza> listaPizze;
     @FXML
     private Button pizzaListButton;
     @FXML
@@ -63,17 +73,40 @@ public class TakeOrderController {
         this.Sistema = Sistema;
     }
 
-    public void onNewPizzaButtonClick(ActionEvent actionEvent) throws IOException { //Azione bottone "NUOVA PIZZA"
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("newPizza.fxml")); //crea una nuova pagina con il file "newPizza.fxml"
-        Parent root1 = (Parent) fxmlLoader.load();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root1));
-        stage.showAndWait();
-        nuovaPizza = NewPizzaController.newPizza; //l'oggetto creato nell'altro controller viene copiato in modo da avere le info sulla pizza
-        listaPizze.add(listaPizze.size(), nuovaPizza); //aggiunta nuova pizza nella lista delle pizze ordinate
-        ordine.setPizze(listaPizze); //aggiunta lista di pizze all'ordine, instanza della classe Ordine
-        updateList();
+    public void onNewPizzaButtonClick(ActionEvent actionEvent) throws IOException {
+        NewPizzaController.setNewPizza(null);
+        try {
+            // Azione bottone "NUOVA PIZZA"
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("newPizza.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+            NewPizzaController.setConfirmed(false); //imposta bottone conferma su false
+            // Disabilita la finestra sottostante
+            Node root2 = ((Node) actionEvent.getSource()).getScene().getRoot();
+            root2.setDisable(true);
 
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root1));
+
+            // Aggiungi un listener per gestire la chiusura della nuova finestra
+            stage.setOnHiding(event -> {
+                // Riabilita la finestra sottostante quando la nuova finestra è chiusa
+                root2.setDisable(false);
+            });
+
+            stage.showAndWait();
+
+            // Azzeramento della pizza corrente
+
+            // Se la nuova pizza è valida, la aggiungi alla lista
+            if (NewPizzaController.getNewPizza() != null && NewPizzaController.isConfirmed()) {
+                listaPizze.add(listaPizze.size(), NewPizzaController.getNewPizza());
+                ordine.setPizze(listaPizze);
+                updateList();
+            }
+        } catch (Exception e) {
+            // Gestisci eventuali eccezioni qui
+            e.printStackTrace();
+        }
     }
 
     public void updateList() throws IOException {   //AGGIORNA LA LISTA DELLE PIZZE ORDINATE
@@ -148,7 +181,7 @@ public class TakeOrderController {
             Ordine Ordine = new Ordine(listaPizze, txtNom.getText(),txtIndirizzo.getText(), txtNom.getText(), 1);
             Sistema.make_Order(Ordine);
             System.out.println("Il sistema ha ora " + Sistema.getCountOrdini() + " ordini");
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("main-menu.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("mainMenu.fxml"));
             Parent root = loader.load();
 
             // Ottieni il controller del GestionaleController
