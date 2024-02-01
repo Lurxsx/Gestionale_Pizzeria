@@ -44,8 +44,8 @@ public class TakeOrderController {
     private TextField txtCity;
     @FXML
     private TextField txtIndirizzo;
-    @FXML
-    private ArrayList<Pizza> listaPizze;
+
+    public ArrayList<Pizza> listaPizze;
     @FXML
     private Button pizzaListButton;
     @FXML
