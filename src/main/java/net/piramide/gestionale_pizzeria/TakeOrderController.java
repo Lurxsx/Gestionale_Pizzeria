@@ -26,7 +26,6 @@ public class TakeOrderController {
     private Stage stage;
     private Scene scene;
     private Parent root;
-
     public VBox vBoxListaPrezzi;
     public AnchorPane APContenitorePizzaPrezzo;
     public Label lblNomePizza;
