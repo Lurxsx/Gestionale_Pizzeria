@@ -144,6 +144,7 @@ public class TakeOrderController {
     }
 
     public void onConfirmButtonClick(ActionEvent event) throws IOException {
+
         if(!txtCity.getText().equals("") && !txtIndirizzo.getText().equals("") && !txtNom.getText().equals("") && !txtTel.getText().equals("")) {
             Ordine Ordine = new Ordine(listaPizze, txtNom.getText(),txtIndirizzo.getText(), txtNom.getText(), 1);
             Sistema.make_Order(Ordine);
