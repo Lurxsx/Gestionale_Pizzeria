@@ -70,10 +70,15 @@ public class Ordine {
         ArrayList<String> ingredientipiumeno = null;
         System.out.println("AA-->" + pizze.get(i).getIngredienti().size());
         Pizza pizzaTemp = pizze.get(i);
-        ArrayList<String> ingredientiTemp = dbp.getIngredientiFromName(pizzaTemp.getNome());
 
-        //ArrayList<String> intersection = new ArrayList<>(pizze.get(i).getIngredienti());
-        //intersection.retainAll(ingredientiTemp);
+        ArrayList<String> ingredientiTemp = dbp.getIngredientiFromName(pizzaTemp.getNome());
+        /*
+        for (int j = 0; j < ingredientiTemp.size(); j++) {
+            System.out.println(ingredientiTemp.get(i));
+        }
+
+        ArrayList<String> intersection = new ArrayList<>(pizze.get(i).getIngredienti());
+        intersection.retainAll(ingredientiTemp);
 
         // Confronta le dimensioni
         if (pizze.get(i).getIngredienti().size() > ingredientiTemp.size()) {
@@ -88,6 +93,8 @@ public class Ordine {
         } else {
             System.out.println("I due elenchi sono identici.");
         }
+
+ */
 
     }
 

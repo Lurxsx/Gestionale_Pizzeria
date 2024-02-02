@@ -80,6 +80,9 @@ public class DatabasePizze {
                 return tempIngredienti;
             }
         }
+        for (int j = 0; j < tempIngredienti.size(); j++) {
+            System.out.println(tempIngredienti.get(j));
+        }
         return tempIngredienti;
     }
 
