@@ -18,7 +18,9 @@ import javafx.util.Duration;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class CurrentOrdersController {
 
@@ -32,7 +34,7 @@ public class CurrentOrdersController {
     @FXML
     private Label pizzaVboxLabel;
     private int cycleOrdini=0;
-
+    private List<Node> componentiIniziali = new ArrayList<>();
     private int ordineAttuale;
 
     public void setGestionale(GestionaleController gestionale) {
@@ -40,16 +42,16 @@ public class CurrentOrdersController {
     }
     public void setSistema(Sistema sistema1) throws IOException {
         this.sistema = sistema1;
-        //updateOrderPostit();
+        updateOrderPostit();
     }
     private GestionaleController gestionale;
 
-
+    private VBox copyclearvbox = null;
     @FXML
     private Label clockLabel;
 
     @FXML
-    private void initialize() {
+    private void initialize() throws IOException {
 
         // Creazione della timeline per aggiornare l'orario ogni secondo
         Timeline timeline = new Timeline(
@@ -57,14 +59,23 @@ public class CurrentOrdersController {
         );
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
+        componentiIniziali.addAll(vboxOrdini.getChildren());
 
+    }
 
+    @FXML
+    private void ripristinaImpostazioniIniziali() {
+        // Rimuovi tutte le componenti attuali dalla VBox
+        vboxOrdini.getChildren().clear();
+
+        // Aggiungi nuovamente le componenti iniziali
+        vboxOrdini.getChildren().addAll(componentiIniziali);
     }
 
 
 
     private void updateOrderPostit() throws IOException {
-
+        ripristinaImpostazioniIniziali();
         for (ordineAttuale = 0; ordineAttuale < sistema.getCountOrdini(); ordineAttuale++) {
             cycleOrdini=0;
             newOrdinePostit(sistema.getOrdineAt(ordineAttuale));
@@ -132,6 +143,8 @@ public class CurrentOrdersController {
         targetAnchorPane.setStyle(sourceAnchorPane.getStyle());
     }
 
+
+
     private Node cloneNode(Node sourceNode, Ordine ordine) throws IOException {
         if (sourceNode instanceof Label) {
             Label sourceLabel = (Label) sourceNode;
@@ -139,7 +152,7 @@ public class CurrentOrdersController {
             System.out.println(clonedLabel.getText() + "   --> " + cycleOrdini);
             if (cycleOrdini==2){
                 DecimalFormat df = new DecimalFormat("000");
-                clonedLabel.setText("Ordine #" + df.format(sistema.getCountOrdini()));
+                clonedLabel.setText("Ordine #" + df.format((double)ordineAttuale+1));
             }
 
 
@@ -207,7 +220,7 @@ public class CurrentOrdersController {
             clonedVBox.getChildren().clear();
 
             for (int i = 0; i < sistema.getOrdineAt(ordineAttuale).getnPizze(); i++) {
-                Label newPizzaLabel = (Label) pizzaVboxLabel;
+                Label newPizzaLabel = new Label();
                 newPizzaLabel.setLayoutX(pizzaVboxLabel.getLayoutX());
                 newPizzaLabel.setLayoutY(pizzaVboxLabel.getLayoutY());
                 newPizzaLabel.setPrefWidth(pizzaVboxLabel.getPrefWidth());
@@ -221,6 +234,7 @@ public class CurrentOrdersController {
                 );
                 System.out.println("font passsati");
                 // Check if the original font is bold and set the cloned font accordingly
+
                 if (source1Font.getStyle().equals("Bold")) {
                     cloned1Font = Font.font(
                             source1Font.getFamily(),
@@ -228,10 +242,12 @@ public class CurrentOrdersController {
                             source1Font.getSize()
                     );
                 }
+
+
                 System.out.println("CHECK2");
                 newPizzaLabel.setFont(cloned1Font);
                 newPizzaLabel.setAlignment(pizzaVboxLabel.getAlignment());
-                //newPizzaLabel.setText(sistema.getOrdineAt(ordineAttuale).getPizzaAt(i).getNome());
+                newPizzaLabel.setText(sistema.getOrdineAt(ordineAttuale).getPizzaAt(i).getNome());
                 //sistema.getOrdineAt(ordineAttuale).getListaIngredientiPiuMeno(i);
                 clonedVBox.getChildren().add(newPizzaLabel);
             }
@@ -257,8 +273,6 @@ public class CurrentOrdersController {
         // Ritorna una copia di base se il tipo di nodo non è gestito
         return new Label("Cloned Node");
     }
-
-
 
     private void updateClock(ActionEvent event) {
         // Ottenere l'orario corrente

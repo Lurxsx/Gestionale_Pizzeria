@@ -98,6 +98,11 @@ public class Ordine {
 
     }
 
+
+    public int getnOrdine() {
+        return nOrdine;
+    }
+
     @Override
     public String toString() {
         return "Ordine{" +
