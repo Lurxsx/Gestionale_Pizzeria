@@ -300,8 +300,8 @@ public class CurrentOrdersController {
 
 
     public void onUpdateButton(ActionEvent actionEvent) throws IOException {
-        vboxOrdini.getChildren()
-        updateOrderPostit();
+        //vboxOrdini.getChildren()
+        //updateOrderPostit();
     }
 
     public void onIndietroButton(ActionEvent actionEvent) {

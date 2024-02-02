@@ -7,9 +7,18 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Paths;
 
 public class GestionaleController {
 
@@ -19,6 +28,12 @@ public class GestionaleController {
     private Sistema sistema;
     private Stage mainStage;
     private Scene currentScene;
+    @FXML
+private VBox vboxOpzioni;
+    private ImageView imgv;
+
+    public GestionaleController(){
+    }
 
     public void setSistema(Sistema sistema){
         this.sistema = sistema;
@@ -28,6 +43,30 @@ public class GestionaleController {
     }
     public void setScene(Scene scene){
         this.currentScene = scene;
+    }
+
+    @FXML
+    private void initialize() {
+
+        try {
+            // Carica l'immagine
+            Image img = new Image(getClass().getResourceAsStream("/net/piramide/gestionale_pizzeria/images/pizzasfondo.jpg"));
+
+            // Imposta le dimensioni desiderate per l'ImageView
+            ImageView imgv = new ImageView(img);
+            imgv.setFitWidth(800);  // Imposta la larghezza desiderata
+            imgv.setFitHeight(600); // Imposta l'altezza desiderata
+
+            // Imposta l'ImageView come sfondo della VBox
+            BackgroundImage backgroundImage = new BackgroundImage(
+                    imgv.getImage(),  // Usa l'immagine dal ImageView
+                    BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+                    BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+            Background background = new Background(backgroundImage);
+            vboxOpzioni.setBackground(background);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
