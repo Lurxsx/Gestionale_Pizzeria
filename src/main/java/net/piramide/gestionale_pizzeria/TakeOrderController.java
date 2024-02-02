@@ -174,7 +174,7 @@ public class TakeOrderController {
     }
 
     public void onConfirmButtonClick(ActionEvent event) throws IOException {
-        if(!txtCity.getText().equals("") && !txtIndirizzo.getText().equals("") && !txtNom.getText().equals("") && !txtTel.getText().equals("")) {
+        if(!txtCity.getText().equals("") && !txtIndirizzo.getText().equals("") && !txtNom.getText().equals("") && !txtTel.getText().equals("") && listaPizze.size()>=1) {
             Ordine Ordine = new Ordine(listaPizze, txtNom.getText(),txtIndirizzo.getText(), txtNom.getText(), 1);
             Sistema.make_Order(Ordine);
             System.out.println("Il sistema ha ora " + Sistema.getCountOrdini() + " ordini");
