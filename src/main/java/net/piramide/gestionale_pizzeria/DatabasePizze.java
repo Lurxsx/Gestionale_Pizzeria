@@ -65,7 +65,23 @@ public class DatabasePizze {
         }
         return pizzaMap;
     }
-
+    public ArrayList<String> getIngredientiFromName(String name) throws IOException {
+        String riga;
+        ArrayList<String> tempIngredienti = null;
+        int i;
+        FileReader fr = new FileReader(referenceDatabase);
+        BufferedReader bw = new BufferedReader(fr);
+        for (i = 0; i < contaRighe(); i++) {
+            riga = bw.readLine();
+            String[] parti = riga.split(", ");
+            String nomePizza = parti[0];
+            if (nomePizza.equals(name)) {
+                tempIngredienti = (ArrayList<String>) Arrays.asList(Arrays.copyOfRange(parti, 2, parti.length));
+                return tempIngredienti;
+            }
+        }
+        return tempIngredienti;
+    }
 
     public List<String> getIngredienti(String nome) throws IOException {
         String riga;
