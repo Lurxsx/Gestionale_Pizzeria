@@ -38,9 +38,8 @@ public class CurrentOrdersController {
     public void setGestionale(GestionaleController gestionale) {
         this.gestionale = gestionale;
     }
-    public void setSistema(Sistema sistema1) throws IOException {
+    public void setSistema(Sistema sistema1){
         this.sistema = sistema1;
-        //updateOrderPostit();
     }
     private GestionaleController gestionale;
 
@@ -205,7 +204,6 @@ public class CurrentOrdersController {
             }
 
             clonedVBox.getChildren().clear();
-
             for (int i = 0; i < sistema.getOrdineAt(ordineAttuale).getnPizze(); i++) {
                 Label newPizzaLabel = (Label) pizzaVboxLabel;
                 newPizzaLabel.setLayoutX(pizzaVboxLabel.getLayoutX());
@@ -219,7 +217,7 @@ public class CurrentOrdersController {
                         source1Font.getFamily(),
                         source1Font.getSize()
                 );
-                System.out.println("font passsati");
+
                 // Check if the original font is bold and set the cloned font accordingly
                 if (source1Font.getStyle().equals("Bold")) {
                     cloned1Font = Font.font(
@@ -228,10 +226,9 @@ public class CurrentOrdersController {
                             source1Font.getSize()
                     );
                 }
-                System.out.println("CHECK2");
                 newPizzaLabel.setFont(cloned1Font);
                 newPizzaLabel.setAlignment(pizzaVboxLabel.getAlignment());
-                //newPizzaLabel.setText(sistema.getOrdineAt(ordineAttuale).getPizzaAt(i).getNome());
+                newPizzaLabel.setText(sistema.getOrdineAt(ordineAttuale).getPizzaAt(i).getNome());
                 //sistema.getOrdineAt(ordineAttuale).getListaIngredientiPiuMeno(i);
                 clonedVBox.getChildren().add(newPizzaLabel);
             }
