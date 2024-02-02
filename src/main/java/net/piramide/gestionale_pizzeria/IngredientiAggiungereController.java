@@ -24,8 +24,11 @@ public class IngredientiAggiungereController {
     public void loadIngredientiFromFile(String filePath) {
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
-            while ((line = br.readLine()) != null) {
-                Ingredienti.getItems().add(line);
+            while ((line = br.readLine()) != null ) {
+                if(!NewPizzaController.getNewPizza().getIngredienti().contains(line)){
+                    System.out.println("Posso aggiungere "+ line);
+                    Ingredienti.getItems().add(line);
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
