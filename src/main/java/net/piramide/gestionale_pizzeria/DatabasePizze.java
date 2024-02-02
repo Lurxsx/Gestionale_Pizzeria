@@ -66,6 +66,7 @@ public class DatabasePizze {
         return pizzaMap;
     }
     public ArrayList<String> getIngredientiFromName(String name) throws IOException {
+        System.out.println("sugo");
         String riga;
         ArrayList<String> tempIngredienti = null;
         int i;
@@ -81,7 +82,7 @@ public class DatabasePizze {
             }
         }
         for (int j = 0; j < tempIngredienti.size(); j++) {
-            System.out.println(tempIngredienti.get(j));
+            System.out.println("lista: " + tempIngredienti.get(j));
         }
         return tempIngredienti;
     }
