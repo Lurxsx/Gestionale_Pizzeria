@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.piramide.gestionale_pizzeria.CurrentOrdersController">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.piramide.gestionale_pizzeria.CurrentOrdersController">
    <children>
       <VBox alignment="TOP_CENTER" layoutX="1040.0" prefHeight="723.0" prefWidth="240.0" spacing="10.0" style="-fx-border-color: #000000;">
          <children>
@@ -26,11 +26,11 @@
                   <Font name="Dubai Bold" size="12.0" />
                </font>
             </Label>
-            <Label text="7" />
+            <Label fx:id="ordiniInCorsoLabel" text="7" />
             <Button mnemonicParsing="false" onAction="#onUpdateButton" text="update" />
          </children>
       </VBox>
-      <VBox fx:id="vboxOrdini" prefHeight="723.0" prefWidth="1041.0">
+      <VBox fx:id="vboxOrdini" layoutY="1.0" prefHeight="684.0" prefWidth="1041.0">
          <children>
             <HBox fx:id="hboxOrdini" prefHeight="241.0" prefWidth="200.0" />
          </children>
@@ -55,5 +55,6 @@
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
+      <Button layoutX="7.0" layoutY="692.0" mnemonicParsing="false" onAction="#onIndietroButton" prefHeight="26.0" prefWidth="76.0" text="INDIETRO" />
    </children>
 </AnchorPane>

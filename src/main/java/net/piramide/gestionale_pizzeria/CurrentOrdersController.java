@@ -5,14 +5,15 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -23,7 +24,8 @@ import java.util.Date;
 import java.util.List;
 
 public class CurrentOrdersController {
-
+    @FXML
+    private Label ordiniInCorsoLabel;
     private Sistema sistema;
     @FXML
     private VBox vboxOrdini;
@@ -33,7 +35,11 @@ public class CurrentOrdersController {
     private AnchorPane anchorOrdine;
     @FXML
     private Label pizzaVboxLabel;
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
     private int cycleOrdini=0;
+    private int OrdniInCorso = 0;
     private List<Node> componentiIniziali = new ArrayList<>();
     private int ordineAttuale;
 
@@ -75,6 +81,14 @@ public class CurrentOrdersController {
 
 
     private void updateOrderPostit() throws IOException {
+        OrdniInCorso = 0;
+        ordiniInCorsoLabel.setText("");
+        for (int i = 0; i < sistema.getCountOrdini(); i++) {
+            if(sistema.getOrdineAt(i).getStato() < 2){
+                OrdniInCorso++;
+            }
+        }
+        ordiniInCorsoLabel.setText(String.valueOf(OrdniInCorso));
         ripristinaImpostazioniIniziali();
         for (ordineAttuale = 0; ordineAttuale < sistema.getCountOrdini(); ordineAttuale++) {
             cycleOrdini=0;
@@ -286,6 +300,43 @@ public class CurrentOrdersController {
 
 
     public void onUpdateButton(ActionEvent actionEvent) throws IOException {
+        vboxOrdini.getChildren()
         updateOrderPostit();
+    }
+
+    public void onIndietroButton(ActionEvent actionEvent) {
+        // Creazione di un alert di conferma
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Conferma Indietro");
+        alert.setHeaderText("Sei sicuro di voler tornare al Gestionale?");
+
+        // Configurazione dei pulsanti dell'alert
+        alert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
+
+        // Visualizza l'alert e attendi la risposta
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.YES) {
+                try {
+                    // Carica il GestionaleController
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("mainMenu.fxml"));
+                    Parent root = loader.load();
+
+                    // Ottieni il controller del GestionaleController
+                    GestionaleController gestionaleController = loader.getController();
+
+                    // Passa il sistema al GestionaleController
+                    gestionaleController.setSistema(this.sistema);
+
+                    // Cambia la scena
+                    stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                    scene = new Scene(root);
+                    stage.setScene(scene);
+                    stage.show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
     }
 }

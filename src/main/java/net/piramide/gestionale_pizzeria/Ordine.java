@@ -103,6 +103,10 @@ public class Ordine {
         return nOrdine;
     }
 
+    public int getStato() {
+        return stato;
+    }
+
     @Override
     public String toString() {
         return "Ordine{" +
