@@ -15,9 +15,12 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class CurrentOrdersController {
 
@@ -28,22 +31,27 @@ public class CurrentOrdersController {
     private HBox hboxOrdini;
     @FXML
     private AnchorPane anchorOrdine;
+    @FXML
+    private Label pizzaVboxLabel;
     private int cycleOrdini=0;
+    private List<Node> componentiIniziali = new ArrayList<>();
+    private int ordineAttuale;
 
     public void setGestionale(GestionaleController gestionale) {
         this.gestionale = gestionale;
     }
-    public void setSistema(Sistema sistema1){
+    public void setSistema(Sistema sistema1) throws IOException {
         this.sistema = sistema1;
+        updateOrderPostit();
     }
-
     private GestionaleController gestionale;
 
+    private VBox copyclearvbox = null;
     @FXML
     private Label clockLabel;
 
     @FXML
-    private void initialize() {
+    private void initialize() throws IOException {
 
         // Creazione della timeline per aggiornare l'orario ogni secondo
         Timeline timeline = new Timeline(
@@ -51,20 +59,31 @@ public class CurrentOrdersController {
         );
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
-
+        componentiIniziali.addAll(vboxOrdini.getChildren());
 
     }
 
-    private void updateOrderPostit(){
+    @FXML
+    private void ripristinaImpostazioniIniziali() {
+        // Rimuovi tutte le componenti attuali dalla VBox
+        vboxOrdini.getChildren().clear();
 
-        for (int i = 0; i < sistema.getCountOrdini(); i++) {
+        // Aggiungi nuovamente le componenti iniziali
+        vboxOrdini.getChildren().addAll(componentiIniziali);
+    }
+
+
+
+    private void updateOrderPostit() throws IOException {
+        ripristinaImpostazioniIniziali();
+        for (ordineAttuale = 0; ordineAttuale < sistema.getCountOrdini(); ordineAttuale++) {
             cycleOrdini=0;
-            newOrdinePostit(sistema.getOrdineAt(i));
+            newOrdinePostit(sistema.getOrdineAt(ordineAttuale));
         }
         System.out.println(sistema.getCountOrdini());
     }
 
-    private void newOrdinePostit(Ordine ordine){
+    private void newOrdinePostit(Ordine ordine) throws IOException {
 
         if (hboxOrdini.getChildren().size() >= 5) {
             HBox hbox = new HBox();
@@ -83,7 +102,7 @@ public class CurrentOrdersController {
         }
     }
 
-    private void copyAnchorPane(AnchorPane sourceAnchorPane, AnchorPane targetAnchorPane, Ordine ordine) {
+    private void copyAnchorPane(AnchorPane sourceAnchorPane, AnchorPane targetAnchorPane, Ordine ordine) throws IOException {
         // Rimuovi tutti gli elementi esistenti dal targetAnchorPane
         targetAnchorPane.getChildren().clear();
 
@@ -103,7 +122,7 @@ public class CurrentOrdersController {
         targetAnchorPane.setStyle(sourceAnchorPane.getStyle());
     }
 
-    private void copyHbox(HBox sourceAnchorPane, HBox targetAnchorPane, Ordine ordine) {
+    private void copyHbox(HBox sourceAnchorPane, HBox targetAnchorPane, Ordine ordine) throws IOException {
         // Rimuovi tutti gli elementi esistenti dal targetAnchorPane
         targetAnchorPane.getChildren().clear();
 
@@ -124,14 +143,16 @@ public class CurrentOrdersController {
         targetAnchorPane.setStyle(sourceAnchorPane.getStyle());
     }
 
-    private Node cloneNode(Node sourceNode, Ordine ordine) {
+
+
+    private Node cloneNode(Node sourceNode, Ordine ordine) throws IOException {
         if (sourceNode instanceof Label) {
             Label sourceLabel = (Label) sourceNode;
             Label clonedLabel = new Label(sourceLabel.getText());
-            //System.out.println(clonedLabel.getText() + "   --> " + cycleOrdini);
+            System.out.println(clonedLabel.getText() + "   --> " + cycleOrdini);
             if (cycleOrdini==2){
                 DecimalFormat df = new DecimalFormat("000");
-                clonedLabel.setText("Ordine #" + df.format(sistema.getCountOrdini()));
+                clonedLabel.setText("Ordine #" + df.format((double)ordineAttuale+1));
             }
 
 
@@ -182,6 +203,7 @@ public class CurrentOrdersController {
             clonedScrollPane.setContent(content);
             return clonedScrollPane;
         } else if (sourceNode instanceof VBox) {
+
             VBox sourceVBox = (VBox) sourceNode;
             VBox clonedVBox = new VBox();
             // Copia altre proprietà specifiche del VBox
@@ -194,6 +216,42 @@ public class CurrentOrdersController {
                 Node clonedChild = cloneNode(child, ordine);
                 clonedVBox.getChildren().add(clonedChild);
             }
+
+            clonedVBox.getChildren().clear();
+
+            for (int i = 0; i < sistema.getOrdineAt(ordineAttuale).getnPizze(); i++) {
+                Label newPizzaLabel = new Label();
+                newPizzaLabel.setLayoutX(pizzaVboxLabel.getLayoutX());
+                newPizzaLabel.setLayoutY(pizzaVboxLabel.getLayoutY());
+                newPizzaLabel.setPrefWidth(pizzaVboxLabel.getPrefWidth());
+                newPizzaLabel.setPrefHeight(pizzaVboxLabel.getPrefHeight());
+
+                // Copia le proprietà del Font
+                Font source1Font = pizzaVboxLabel.getFont();
+                Font cloned1Font = Font.font(
+                        source1Font.getFamily(),
+                        source1Font.getSize()
+                );
+                System.out.println("font passsati");
+                // Check if the original font is bold and set the cloned font accordingly
+
+                if (source1Font.getStyle().equals("Bold")) {
+                    cloned1Font = Font.font(
+                            source1Font.getFamily(),
+                            FontWeight.BOLD,
+                            source1Font.getSize()
+                    );
+                }
+
+
+                System.out.println("CHECK2");
+                newPizzaLabel.setFont(cloned1Font);
+                newPizzaLabel.setAlignment(pizzaVboxLabel.getAlignment());
+                newPizzaLabel.setText(sistema.getOrdineAt(ordineAttuale).getPizzaAt(i).getNome());
+                //sistema.getOrdineAt(ordineAttuale).getListaIngredientiPiuMeno(i);
+                clonedVBox.getChildren().add(newPizzaLabel);
+            }
+
             return clonedVBox;
         } else if (sourceNode instanceof AnchorPane) {
             AnchorPane sourceAnchorPane = (AnchorPane) sourceNode;
@@ -216,8 +274,6 @@ public class CurrentOrdersController {
         return new Label("Cloned Node");
     }
 
-
-
     private void updateClock(ActionEvent event) {
         // Ottenere l'orario corrente
         Date now = new Date();
@@ -229,7 +285,7 @@ public class CurrentOrdersController {
     }
 
 
-    public void onUpdateButton(ActionEvent actionEvent) {
+    public void onUpdateButton(ActionEvent actionEvent) throws IOException {
         updateOrderPostit();
     }
 }

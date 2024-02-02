@@ -37,6 +37,9 @@ public class Sistema {
         return ordini.get(i);
     }
 
+
+
+
     public void stampaOrdini(){
         for (Ordine ordine : ordini) {
             System.out.println(ordine.toString());
